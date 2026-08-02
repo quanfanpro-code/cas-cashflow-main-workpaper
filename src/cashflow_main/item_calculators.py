@@ -292,7 +292,11 @@ def calculate_items(rule_pack: RulePack, facts: FactLedger) -> CalculationResult
                 raw_net = sum(fact.amount_minor for fact in positive) - sum(
                     fact.amount_minor for fact in negative
                 )
-                active = not selector.get("positive_only", False) or raw_net > 0
+                active = (
+                    not selector.get("positive_only", False)
+                    or raw_net > 0
+                    or (raw_net == 0 and selector.get("claim_zero", False) and bool(positive or negative))
+                )
                 selected = positive + negative
                 allocated_selected = selected if active else ()
                 if component.occupancy_policy == "exclusive":

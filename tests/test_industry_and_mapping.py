@@ -142,3 +142,36 @@ def test_insurance_format_is_detected_from_new_and_old_statement_terms():
     assert detect_insurance_format(bundle_with("保险合同负债", "保险服务收入"), "2025年度") == "insurance_2023"
     assert detect_insurance_format(bundle_with("未到期责任准备金", "保险业务收入"), "2022年度") == "insurance_2018"
     assert detect_insurance_format(bundle_with("货币资金"), "2024年度") is None
+
+
+def test_common_inventory_accounts_roll_up_to_inventory_statement_item():
+    rows = (
+        AccountBalance("1403", "原材料", 100, 20, 10, 110),
+        AccountBalance("1405", "库存商品", 200, 30, 20, 210),
+        AccountBalance("5001", "生产成本", 50, 10, 5, 55),
+    )
+    mapping = with_exact_statement_names(StatementMapping(()), ["存货"], [])
+
+    statements = build_book_statements(rows, mapping)
+
+    assert statements.balance_sheet["存货"].current_minor == 375
+    assert not statements.unmapped_accounts
+
+
+def test_bank_accounts_roll_up_to_current_financial_statement_items():
+    rows = (
+        AccountBalance("100101", "库存现金", 10, 0, 0, 10),
+        AccountBalance("100301", "存放中央银行法定准备金", 90, 0, 0, 90),
+        AccountBalance("130101", "公司贷款", 300, 0, 0, 300),
+    )
+    mapping = with_exact_statement_names(
+        StatementMapping(()),
+        ["现金及存放中央银行款项", "发放贷款和垫款"],
+        [],
+    )
+
+    statements = build_book_statements(rows, mapping)
+
+    assert statements.balance_sheet["现金及存放中央银行款项"].current_minor == 100
+    assert statements.balance_sheet["发放贷款和垫款"].current_minor == 300
+    assert not statements.unmapped_accounts

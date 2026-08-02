@@ -30,6 +30,7 @@ from .ledger_reconciliation import LedgerDifference, LedgerReconciliationResult,
 from .rule_loader import RulePack, load_rule_pack
 from .statement_mapping import (
     MappingRule,
+    StatementMappingError,
     StatementMapping,
     build_book_statements,
     is_control_statement_item,
@@ -397,12 +398,36 @@ def _prepare_run(config: RunConfig, run_dir: Path) -> PipelineResult:
         for fact in facts.values()
         if "financing_issue_cost_cash_paid" in fact.tags
     )
-    decision_cases = decision_cases + tuple(label_conflict_cases) + issue_cost_cases
+    classification_cases = tuple(
+        build_decision_case(
+            decision_id=f"CASH_CLASSIFICATION:{fact.fact_id}",
+            amount_minor=fact.amount_minor,
+            candidate_item_ids=tuple(
+                str(value)
+                for value in fact.metadata.get("classification_candidates", ())
+            ),
+            performance_materiality_minor=config.manifest.performance_materiality_minor,
+            strong_conflict=bool(fact.metadata.get("classification_strong_conflict")),
+            supporting_evidence=tuple(
+                str(value)
+                for value in fact.metadata.get("classification_evidence", ())
+            ),
+            contrary_evidence=("现有借贷科目和摘要不能排除其他活动类别",),
+        )
+        for fact in facts.values()
+        if len(tuple(fact.metadata.get("classification_candidates", ()))) > 1
+    )
+    decision_cases = (
+        decision_cases
+        + tuple(label_conflict_cases)
+        + issue_cost_cases
+        + classification_cases
+    )
     calculation = calculate_items(pack, facts)
     opening, closing, restricted_cash = cash_and_equivalent_control(facts)
     uncertain_cash: dict[str, list] = {}
     for fact in facts.values():
-        if "restricted_cash_uncertain" not in fact.tags:
+        if not {"restricted_cash_uncertain", "cash_equivalent_uncertain"}.intersection(fact.tags):
             continue
         account_code = str(fact.metadata.get("account_code", ""))
         uncertain_cash.setdefault(account_code, []).append(fact)
@@ -415,14 +440,27 @@ def _prepare_run(config: RunConfig, run_dir: Path) -> PipelineResult:
         if not amount:
             continue
         account_name = str(account_facts[0].metadata.get("account_name", "其他货币资金"))
+        is_term_deposit = any("cash_equivalent_uncertain" in fact.tags for fact in account_facts)
         cash_decisions.append(build_decision_case(
-            decision_id=f"RESTRICTED_CASH:{account_code or account_name}",
+            decision_id=(
+                f"TERM_DEPOSIT:{account_code or account_name}"
+                if is_term_deposit
+                else f"RESTRICTED_CASH:{account_code or account_name}"
+            ),
             amount_minor=amount,
-            candidate_item_ids=("CASH_EQUIVALENT_INCLUDE", "CASH_EQUIVALENT_EXCLUDE"),
+            candidate_item_ids=("CASH_EQUIVALENT_EXCLUDE", "CASH_EQUIVALENT_INCLUDE") if is_term_deposit else ("CASH_EQUIVALENT_INCLUDE", "CASH_EQUIVALENT_EXCLUDE"),
             performance_materiality_minor=config.manifest.performance_materiality_minor,
             strong_conflict=True,
-            supporting_evidence=(f"{account_name}未提供可随时支取或受限性质明细",),
-            contrary_evidence=("其他货币资金可能包含保证金等受限用途",),
+            supporting_evidence=(
+                f"{account_name}未提供期限或可随时支取条件"
+                if is_term_deposit
+                else f"{account_name}未提供可随时支取或受限性质明细"
+            ,),
+            contrary_evidence=(
+                "定期存款只有在符合期限短、流动性强及可随时使用等条件时才可纳入"
+                if is_term_deposit
+                else "其他货币资金可能包含保证金等受限用途"
+            ,),
         ))
     decision_cases = decision_cases + tuple(cash_decisions)
     validation = validate_completeness(facts, calculation, pack, opening, closing)
@@ -497,6 +535,20 @@ def _prepare_run(config: RunConfig, run_dir: Path) -> PipelineResult:
             }
             for fact in restricted_cash
         ],
+        "unallocated_cash": [
+            {
+                "fact_id": fact.fact_id,
+                "debit_account_name": str(fact.metadata.get("debit_account_name", "")),
+                "credit_account_name": str(fact.metadata.get("credit_account_name", "")),
+                "amount_minor": fact.amount_minor,
+                "source_ids": list(fact.source_ids),
+                "evidence": list(fact.metadata.get("classification_evidence", ())),
+            }
+            for issue in validation.unallocated
+            if issue.fact_id
+            for fact in (facts.by_id.get(issue.fact_id),)
+            if fact is not None and "unclassified_cash" in fact.tags
+        ],
         "ledger_differences": [asdict(item) for item in ledger.differences],
     }
     unresolved_adjustment = any(row.unexplained_minor for row in bridge.rows) or bool(bridge.orphan_adjustments)
@@ -543,6 +595,21 @@ def prepare_run(config: RunConfig, run_dir: Path) -> PipelineResult:
     run_dir.mkdir(parents=True, exist_ok=True)
     try:
         return _prepare_run(config, run_dir)
+    except StatementMappingError as exc:
+        industry = config.enterprise_type or EnterpriseType.GENERAL
+        atomic_write_json(run_dir / "state.json", {
+            "run_id": run_dir.name or str(uuid.uuid4()),
+            "status": RunStatus.BLOCKED.value,
+            "statement_kind": "无",
+            "enterprise_type": industry.value,
+            "manifest": manifest_to_dict(config.manifest),
+            "entity_name": config.entity_name,
+            "period": config.period,
+            "error_type": type(exc).__name__,
+            "error_message": str(exc),
+            "pending_decisions": ["STATEMENT_MAPPING_CONFIRMATION"],
+        })
+        return PipelineResult(run_dir, RunStatus.BLOCKED, "无", industry)
     except Exception as exc:
         atomic_write_json(run_dir / "state.json", {
             "run_id": run_dir.name or str(uuid.uuid4()),

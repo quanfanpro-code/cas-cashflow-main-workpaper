@@ -56,10 +56,18 @@ def test_case3_style_workpaper_shows_components_sources_controls_and_links(tmp_p
                 "supporting_evidence": ["支持证据A"], "contrary_evidence": ["相反证据B"],
                 "confirmation_status": "已确认",
             }],
-            "restricted_cash": [
-                {"period": "期初", "account_name": "冻结存款", "amount_minor": 100, "source_ids": ["trial_balance:1002"]},
-                {"period": "期末", "account_name": "冻结存款", "amount_minor": 200, "source_ids": ["trial_balance:1002"]},
-            ],
+                "restricted_cash": [
+                    {"period": "期初", "account_name": "冻结存款", "amount_minor": 100, "source_ids": ["trial_balance:1002"]},
+                    {"period": "期末", "account_name": "冻结存款", "amount_minor": 200, "source_ids": ["trial_balance:1002"]},
+                ],
+                "unallocated_cash": [{
+                    "fact_id": "JP:9",
+                    "debit_account_name": "其他应收款",
+                    "credit_account_name": "银行存款",
+                    "amount_minor": 300,
+                    "source_ids": ["journal_pair:9"],
+                    "evidence": ["摘要信息不足，未能分类"],
+                }],
         },
     )
     workbook = openpyxl.load_workbook(path, data_only=False)
@@ -73,7 +81,8 @@ def test_case3_style_workpaper_shows_components_sources_controls_and_links(tmp_p
         "非现金剔除", "特殊事项调整", "受限资金处理", "规则计算结果", "正表列示金额", "验证差异", "核对结论",
         "statement:IS:营业收入", "CFO-01-C01", "未命中", "账务核对", "不一致（1项）",
         "未映射科目", "待映射科目", "自动判断与待确认事项", "D1", "支持证据A", "相反证据B", "已确认",
-        "受限资金明细", "冻结存款", "期初", "期末", "账务核对差异", "银行存款",
+            "现金范围剔除明细", "冻结存款", "期初", "期末", "账务核对差异", "银行存款",
+            "未分类现金明细", "JP:9", "其他应收款", "摘要信息不足，未能分类",
         "孤立调整", "A-ORPHAN", "调整表:第2行", "自动分类依据", "外部标签", "标签冲突",
         "借记现金、贷记短期借款", "investment_acquisition_cash",
     ):

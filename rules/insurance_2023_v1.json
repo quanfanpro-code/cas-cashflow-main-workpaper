@@ -360,7 +360,7 @@
       "name": "销售商品、提供劳务收到的现金",
       "section": "operating",
       "display_order": 10,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-SALES",
       "components": [
         {
           "component_id": "CFO-I23-SALES-C01",
@@ -390,7 +390,7 @@
       "name": "向其他金融机构拆入资金净增加额",
       "section": "operating",
       "display_order": 20,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-OTHER-BORROW",
       "components": [
         {
           "component_id": "CFO-I23-OTHER-BORROW-C01",
@@ -449,7 +449,7 @@
       "name": "收到签发保险合同保费取得的现金",
       "section": "operating",
       "display_order": 30,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-PREMIUM",
       "components": [
         {
           "component_id": "CFO-I23-PREMIUM-C01",
@@ -479,7 +479,7 @@
       "name": "收到分入再保险合同的现金净额",
       "section": "operating",
       "display_order": 40,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-INWARD",
       "components": [
         {
           "component_id": "CFO-I23-INWARD-C01",
@@ -538,7 +538,7 @@
       "name": "拆入资金净增加额",
       "section": "operating",
       "display_order": 50,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-BORROW",
       "components": [
         {
           "component_id": "CFO-I23-BORROW-C01",
@@ -597,7 +597,7 @@
       "name": "收到其他与经营活动有关的现金",
       "section": "operating",
       "display_order": 60,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-OTHER-IN",
       "components": [
         {
           "component_id": "CFO-I23-OTHER-IN-C01",
@@ -627,7 +627,7 @@
       "name": "经营活动现金流入小计",
       "section": "operating",
       "display_order": 70,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-IN",
       "is_subtotal": true,
       "subtotal_of": [
         "CFO-I23-SALES",
@@ -666,7 +666,7 @@
       "name": "支付签发保险合同赔款的现金",
       "section": "operating",
       "display_order": 80,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-CLAIM",
       "components": [
         {
           "component_id": "CFO-I23-CLAIM-C01",
@@ -696,7 +696,7 @@
       "name": "支付分出再保险合同的现金净额",
       "section": "operating",
       "display_order": 90,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-OUTWARD",
       "components": [
         {
           "component_id": "CFO-I23-OUTWARD-C01",
@@ -755,7 +755,7 @@
       "name": "保单质押贷款净增加额",
       "section": "operating",
       "display_order": 100,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-PLEDGE",
       "components": [
         {
           "component_id": "CFO-I23-PLEDGE-C01",
@@ -814,7 +814,7 @@
       "name": "拆出资金净增加额",
       "section": "operating",
       "display_order": 110,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-LENT",
       "components": [
         {
           "component_id": "CFO-I23-LENT-C01",
@@ -873,7 +873,7 @@
       "name": "支付手续费及佣金的现金",
       "section": "operating",
       "display_order": 120,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-FEE",
       "components": [
         {
           "component_id": "CFO-I23-FEE-C01",
@@ -903,7 +903,7 @@
       "name": "支付给职工及为职工支付的现金",
       "section": "operating",
       "display_order": 130,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-EMP",
       "components": [
         {
           "component_id": "CFO-I23-EMP-C01",
@@ -933,7 +933,7 @@
       "name": "支付的各项税费",
       "section": "operating",
       "display_order": 140,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-TAX",
       "components": [
         {
           "component_id": "CFO-I23-TAX-C01",
@@ -963,7 +963,7 @@
       "name": "支付其他与经营活动有关的现金",
       "section": "operating",
       "display_order": 150,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-I23-OTHER-OUT",
       "components": [
         {
           "component_id": "CFO-I23-OTHER-OUT-C01",
@@ -993,7 +993,7 @@
       "name": "经营活动现金流出小计",
       "section": "operating",
       "display_order": 160,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-OUT",
       "is_subtotal": true,
       "subtotal_of": [
         "CFO-I23-CLAIM",
@@ -1036,7 +1036,7 @@
       "name": "经营活动产生的现金流量净额",
       "section": "operating",
       "display_order": 170,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFO-NET",
       "is_subtotal": true,
       "subtotal_of": [
         "CFO-IN",
@@ -1071,7 +1071,7 @@
       "name": "收回投资收到的现金",
       "section": "investing",
       "display_order": 180,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-01",
       "components": [
         {
           "component_id": "CFI-01-C01",
@@ -1102,7 +1102,7 @@
       "name": "取得投资收益和利息收入收到的现金",
       "section": "investing",
       "display_order": 190,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-02",
       "components": [
         {
           "component_id": "CFI-02-C01",
@@ -1133,7 +1133,7 @@
       "name": "处置固定资产、无形资产和其他长期资产收回的现金净额",
       "section": "investing",
       "display_order": 200,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-03",
       "components": [
         {
           "component_id": "CFI-03-C01",
@@ -1199,7 +1199,7 @@
       "name": "收到其他与投资活动有关的现金",
       "section": "investing",
       "display_order": 210,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-05",
       "components": [
         {
           "component_id": "CFI-05-C01",
@@ -1230,7 +1230,7 @@
       "name": "投资活动现金流入小计",
       "section": "investing",
       "display_order": 220,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-IN",
       "is_subtotal": true,
       "subtotal_of": [
         "CFI-01",
@@ -1265,7 +1265,7 @@
       "name": "投资支付的现金",
       "section": "investing",
       "display_order": 230,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-07",
       "components": [
         {
           "component_id": "CFI-07-C01",
@@ -1300,7 +1300,7 @@
       "name": "返售业务资金净增加额",
       "section": "investing",
       "display_order": 240,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-I23-REVERSE-REPO",
       "components": [
         {
           "component_id": "CFI-I23-REVERSE-REPO-C01",
@@ -1359,7 +1359,7 @@
       "name": "购建固定资产、无形资产和其他长期资产支付的现金",
       "section": "investing",
       "display_order": 250,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-06",
       "components": [
         {
           "component_id": "CFI-06-C01",
@@ -1474,7 +1474,7 @@
       "name": "支付其他与投资活动有关的现金",
       "section": "investing",
       "display_order": 260,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-09",
       "components": [
         {
           "component_id": "CFI-09-C01",
@@ -1505,7 +1505,7 @@
       "name": "投资活动现金流出小计",
       "section": "investing",
       "display_order": 270,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-OUT",
       "is_subtotal": true,
       "subtotal_of": [
         "CFI-07",
@@ -1540,7 +1540,7 @@
       "name": "投资活动产生的现金流量净额",
       "section": "investing",
       "display_order": 280,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFI-NET",
       "is_subtotal": true,
       "subtotal_of": [
         "CFI-IN",
@@ -1575,7 +1575,7 @@
       "name": "吸收投资收到的现金",
       "section": "financing",
       "display_order": 290,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-01",
       "components": [
         {
           "component_id": "CFF-01-C01",
@@ -1630,7 +1630,7 @@
       "name": "取得借款收到的现金",
       "section": "financing",
       "display_order": 300,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-02",
       "components": [
         {
           "component_id": "CFF-02-C01",
@@ -1681,7 +1681,7 @@
       "name": "发行债券收到的现金",
       "section": "financing",
       "display_order": 310,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-BOND",
       "components": [
         {
           "component_id": "CFF-BOND-C01",
@@ -1711,7 +1711,7 @@
       "name": "回购业务资金净增加额",
       "section": "financing",
       "display_order": 320,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-I-REPO",
       "components": [
         {
           "component_id": "CFF-I-REPO-C01",
@@ -1770,7 +1770,7 @@
       "name": "收到其他与筹资活动有关的现金",
       "section": "financing",
       "display_order": 330,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-03",
       "components": [
         {
           "component_id": "CFF-03-C01",
@@ -1800,7 +1800,7 @@
       "name": "筹资活动现金流入小计",
       "section": "financing",
       "display_order": 340,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-IN",
       "is_subtotal": true,
       "subtotal_of": [
         "CFF-01",
@@ -1837,7 +1837,7 @@
       "name": "偿还债务支付的现金",
       "section": "financing",
       "display_order": 350,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-04",
       "components": [
         {
           "component_id": "CFF-04-C01",
@@ -1867,7 +1867,7 @@
       "name": "分配股利、利润或偿付利息支付的现金",
       "section": "financing",
       "display_order": 360,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-05",
       "components": [
         {
           "component_id": "CFF-05-C01",
@@ -1877,7 +1877,6 @@
           "selector": {
             "tags_any": [
               "dividend_cash_paid",
-              "profit_distribution_cash_paid",
               "interest_cash_paid"
             ],
             "exclude_tags_any": [
@@ -1899,7 +1898,7 @@
       "name": "支付其他与筹资活动有关的现金",
       "section": "financing",
       "display_order": 370,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-06",
       "components": [
         {
           "component_id": "CFF-06-C01",
@@ -1931,7 +1930,7 @@
       "name": "筹资活动现金流出小计",
       "section": "financing",
       "display_order": 380,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-OUT",
       "is_subtotal": true,
       "subtotal_of": [
         "CFF-04",
@@ -1964,7 +1963,7 @@
       "name": "筹资活动产生的现金流量净额",
       "section": "financing",
       "display_order": 390,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CFF-NET",
       "is_subtotal": true,
       "subtotal_of": [
         "CFF-IN",
@@ -1999,7 +1998,7 @@
       "name": "汇率变动对现金及现金等价物的影响",
       "section": "cash",
       "display_order": 400,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-FX",
       "components": [
         {
           "component_id": "FX-C01",
@@ -2031,7 +2030,7 @@
       "name": "现金及现金等价物净增加额",
       "section": "cash",
       "display_order": 410,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-NET-CASH",
       "is_subtotal": true,
       "subtotal_of": [
         "CFO-NET",
@@ -2066,7 +2065,7 @@
       "name": "加：期初现金及现金等价物余额",
       "section": "cash",
       "display_order": 420,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-OPENING-CASH",
       "is_subtotal": true,
       "subtotal_of": [],
       "components": [
@@ -2097,7 +2096,7 @@
       "name": "期末现金及现金等价物余额",
       "section": "cash",
       "display_order": 430,
-      "verification_record_id": "FV-INSURANCE-2023-FORMAT",
+      "verification_record_id": "FV-INSURANCE-2023-CLOSING-CASH",
       "is_subtotal": true,
       "subtotal_of": [],
       "components": [

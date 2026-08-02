@@ -6,6 +6,7 @@ import pytest
 from cashflow_main.contracts import EnterpriseType, InputManifest, RunStatus
 from cashflow_main.input_adapter import InputFormulaCacheError
 from cashflow_main.pipeline import RunConfig, finalize_run, get_status, load_run_artifacts, load_validation_report, prepare_run
+from cashflow_main.statement_mapping import StatementMappingError
 from cashflow_main.storage import InputChangedError
 
 
@@ -124,6 +125,22 @@ def test_prepare_failure_persists_failed_state_and_chinese_error(tmp_path):
     state = __import__("json").loads((tmp_path / "run/state.json").read_text(encoding="utf-8-sig"))
     assert state["status"] == RunStatus.FAILED.value
     assert "公式没有缓存值" in state["error_message"]
+
+
+def test_predictable_statement_mapping_conflict_is_blocked_not_failed(tmp_path, monkeypatch):
+    def conflict(*_args, **_kwargs):
+        raise StatementMappingError("科目映射不唯一：测试科目")
+
+    monkeypatch.setattr("cashflow_main.pipeline.build_book_statements", conflict)
+
+    result = prepare_run(config(tmp_path), tmp_path / "run")
+
+    assert result.status == RunStatus.BLOCKED
+    state = __import__("json").loads(
+        (tmp_path / "run/state.json").read_text(encoding="utf-8-sig")
+    )
+    assert state["status"] == RunStatus.BLOCKED.value
+    assert "科目映射不唯一" in state["error_message"]
 
 
 def test_ledger_block_persists_differences_and_cannot_be_finalized(tmp_path):

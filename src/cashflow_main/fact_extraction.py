@@ -2,6 +2,7 @@
 
 from collections import Counter
 from dataclasses import dataclass
+import re
 
 from .adjustment_bridge import AdjustmentBridgeResult
 from .contracts import EnterpriseType, NormalizedInputBundle
@@ -47,6 +48,34 @@ RESTRICTED_CASH_TERMS = (
     "不可随时支取",
 )
 
+LONG_TERM_DEPOSIT_TERMS = (
+    "超过三个月",
+    "三个月以上",
+    "半年期",
+    "六个月",
+    "九个月",
+    "一年期",
+    "二年期",
+    "两年期",
+    "三年期",
+    "五年期",
+)
+
+AVAILABLE_DEPOSIT_TERMS = (
+    "三个月内",
+    "可随时支取",
+    "提前通知可支取",
+)
+
+
+def _is_long_term_deposit(evidence: str) -> bool:
+    if "定期" not in evidence:
+        return False
+    if any(term in evidence for term in LONG_TERM_DEPOSIT_TERMS):
+        return True
+    month = re.search(r"(\d+)\s*个?月", evidence)
+    return bool(month and int(month.group(1)) > 3)
+
 
 def _account_evidence(account_name: str, original_fields: dict[str, object]) -> str:
     return " ".join(
@@ -74,7 +103,7 @@ def cash_and_equivalent_control(
     )
     restricted = tuple(
         fact for fact in facts.values()
-        if "restricted_cash" in fact.tags
+        if {"restricted_cash", "non_cash_equivalent"}.intersection(fact.tags)
         and fact.metadata.get("kind") in {"opening", "closing"}
     )
     return opening, closing, restricted
@@ -129,9 +158,22 @@ def extract_facts(
         source = (source_locator,)
         base = (("account_code", row.account_code), ("account_name", row.account_name))
         evidence = _account_evidence(row.account_name, row.original_fields)
-        is_cash_equivalent = any(name in evidence for name in cash_names)
-        is_restricted = is_cash_equivalent and any(
+        is_term_deposit = "定期存款" in evidence or "定期" in row.account_name
+        is_cash_candidate = any(name in evidence for name in cash_names) or is_term_deposit
+        is_long_term_deposit = is_cash_candidate and _is_long_term_deposit(evidence)
+        is_uncertain_term_deposit = (
+            is_term_deposit
+            and not is_long_term_deposit
+            and not any(term in evidence for term in AVAILABLE_DEPOSIT_TERMS)
+        )
+        is_restricted = is_cash_candidate and any(
             term in evidence for term in RESTRICTED_CASH_TERMS
+        )
+        is_cash_equivalent = (
+            is_cash_candidate
+            and not is_restricted
+            and not is_long_term_deposit
+            and not is_uncertain_term_deposit
         )
         is_uncertain_other_monetary_funds = (
             "".join(row.account_name.split()) == "其他货币资金"
@@ -156,6 +198,11 @@ def extract_facts(
                 tags.append("cash_equivalent")
             if is_restricted:
                 tags.append("restricted_cash")
+            if is_long_term_deposit:
+                tags.append("non_cash_equivalent")
+                tags.append("long_term_deposit")
+            if is_uncertain_term_deposit:
+                tags.append("cash_equivalent_uncertain")
             if is_uncertain_other_monetary_funds:
                 tags.append("restricted_cash_uncertain")
             facts.append(Fact(
@@ -167,23 +214,36 @@ def extract_facts(
                 base + (("kind", kind), ("account_evidence", evidence)),
             ))
     for index, pair in enumerate(bundle.journal_pairs, 1):
-        fact_id = f"JP:{index}"
         classification = classify_pair(pair, enterprise_type)
-        tags = ["journal_pair", *classification.tags]
-        facts.append(Fact(
-            fact_id,
-            pair.amount_minor,
-            tuple(x.strip() for x in tags if x.strip()),
-            (f"journal_pair:{index}",),
-            fact_id,
-            (
-                ("debit_account_name", pair.debit_account_name),
-                ("credit_account_name", pair.credit_account_name),
-                ("classification_evidence", classification.evidence),
-                ("supplied_tags", classification.supplied_tags),
-                ("tag_conflicts", classification.conflicts),
-            ),
-        ))
+        semantic_tags = classification.tags or (
+            ("unclassified_cash",)
+            if classification.is_cash_pair
+            else ("unclassified_noncash",)
+        )
+        for tag_index, semantic_tag in enumerate(semantic_tags):
+            base_fact_id = f"JP:{index}"
+            fact_id = (
+                base_fact_id
+                if tag_index == 0
+                else f"{base_fact_id}:{tag_index + 1}:{semantic_tag}"
+            )
+            facts.append(Fact(
+                fact_id,
+                pair.amount_minor,
+                ("journal_pair", semantic_tag),
+                (f"journal_pair:{index}",),
+                f"{base_fact_id}:{semantic_tag}",
+                (
+                    ("debit_account_name", pair.debit_account_name),
+                    ("credit_account_name", pair.credit_account_name),
+                    ("classification_evidence", classification.evidence),
+                    ("supplied_tags", classification.supplied_tags),
+                    ("tag_conflicts", classification.conflicts if tag_index == 0 else ()),
+                    ("classification_candidates", classification.candidate_tags if tag_index == 0 else ()),
+                    ("classification_preferred", classification.preferred_tag or ""),
+                    ("classification_strong_conflict", classification.strong_conflict if tag_index == 0 else False),
+                ),
+            ))
     for row in bridge.rows:
         for adjustment in row.matched_adjustments:
             tags = ["adjustment", adjustment.adjustment_type]

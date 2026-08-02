@@ -120,3 +120,26 @@ def test_insurance_2023_format_uses_new_contract_names():
     assert "支付签发保险合同赔款的现金" in names
     assert "支付分出再保险合同的现金净额" in names
     assert "收到原保险合同保费取得的现金" not in names
+
+
+def test_current_insurance_pack_has_item_level_verification_records():
+    raw = json.loads(
+        (ROOT / "rules/insurance_2023_v1.json").read_text(encoding="utf-8-sig")
+    )
+    records = {
+        record["verification_id"]: record
+        for line in (ROOT / "references/公式核验/insurance_2023_v1.jsonl")
+        .read_text(encoding="utf-8-sig")
+        .splitlines()
+        if line.strip()
+        for record in (json.loads(line),)
+    }
+
+    assert len(records) == len(raw["items"])
+    assert len({item["verification_record_id"] for item in raw["items"]}) == len(
+        raw["items"]
+    )
+    for item in raw["items"]:
+        record = records[item["verification_record_id"]]
+        assert record["cashflow_item_id"] == item["item_id"]
+        assert item["name"] in record["candidate_formula"]["components"]

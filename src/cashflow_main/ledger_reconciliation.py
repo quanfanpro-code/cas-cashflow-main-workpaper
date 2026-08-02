@@ -44,6 +44,14 @@ def _related_account_names(left: str, right: str) -> bool:
     return bool(left_key and right_key and (left_key in right_key or right_key in left_key))
 
 
+def _is_explicit_detail_name(parent: str, child: str) -> bool:
+    parent = "".join((parent or "").split())
+    child = "".join((child or "").split())
+    if not parent or not child.startswith(parent) or len(child) == len(parent):
+        return False
+    return child[len(parent)] in "-_—－（）()"
+
+
 def reconcile_journal_to_trial_balance(
     pairs: tuple[JournalPair, ...] | list[JournalPair],
     balances: tuple[AccountBalance, ...] | list[AccountBalance],
@@ -84,14 +92,40 @@ def reconcile_journal_to_trial_balance(
 
     balance_names = set(balance_debit) | set(balance_credit)
     journal_names = set(journal_debit) | set(journal_credit)
+    consumed_balance_names: set[str] = set()
+    ambiguous_journal_names: set[str] = set()
     for journal_name in sorted(journal_names - balance_names):
         related_names = tuple(
             balance_name
             for balance_name in balance_names
             if _related_account_names(journal_name, balance_name)
         )
-        if related_names:
-            related = max(related_names, key=lambda value: len(_account_key(value)))
+        ancestor_names = tuple(
+            name for name in related_names
+            if _account_key(name) in _account_key(journal_name)
+        )
+        detail_names = tuple(
+            name for name in related_names
+            if _account_key(journal_name) in _account_key(name)
+        )
+        if ancestor_names:
+            max_length = max(len(_account_key(value)) for value in ancestor_names)
+            most_specific = tuple(
+                value for value in ancestor_names
+                if len(_account_key(value)) == max_length
+            )
+            if len(most_specific) != 1:
+                ambiguous_journal_names.add(journal_name)
+                differences.append(LedgerDifference(
+                    account_name=f"{journal_name} ↔ {'、'.join(sorted(most_specific))}",
+                    side="both",
+                    expected_minor=0,
+                    actual_minor=journal_debit.get(journal_name, 0) + journal_credit.get(journal_name, 0),
+                    difference_minor=journal_debit.get(journal_name, 0) + journal_credit.get(journal_name, 0),
+                    kind="ambiguous_account_granularity",
+                ))
+                continue
+            related = most_specific[0]
             remapped_debit = journal_debit.pop(journal_name, 0)
             remapped_credit = journal_credit.pop(journal_name, 0)
             journal_debit[related] = journal_debit.get(related, 0) + remapped_debit
@@ -104,8 +138,37 @@ def reconcile_journal_to_trial_balance(
                 difference_minor=0,
                 kind="account_name_granularity",
             ))
+        elif detail_names and all(
+            _is_explicit_detail_name(journal_name, name)
+            for name in detail_names
+        ):
+            balance_debit[journal_name] = sum(balance_debit.get(name, 0) for name in detail_names)
+            balance_credit[journal_name] = sum(balance_credit.get(name, 0) for name in detail_names)
+            consumed_balance_names.update(detail_names)
+            differences.append(LedgerDifference(
+                account_name=f"{journal_name} ↔ {'、'.join(sorted(detail_names))}",
+                side="both",
+                expected_minor=balance_debit[journal_name] + balance_credit[journal_name],
+                actual_minor=journal_debit.get(journal_name, 0) + journal_credit.get(journal_name, 0),
+                difference_minor=0,
+                kind="account_name_granularity",
+            ))
+        elif related_names:
+            ambiguous_journal_names.add(journal_name)
+            differences.append(LedgerDifference(
+                account_name=f"{journal_name} ↔ {'、'.join(sorted(related_names))}",
+                side="both",
+                expected_minor=sum(
+                    balance_debit.get(name, 0) + balance_credit.get(name, 0)
+                    for name in related_names
+                ),
+                actual_minor=journal_debit.get(journal_name, 0) + journal_credit.get(journal_name, 0),
+                difference_minor=journal_debit.get(journal_name, 0) + journal_credit.get(journal_name, 0),
+                kind="ambiguous_account_granularity",
+            ))
+    balance_names = (set(balance_debit) | set(balance_credit)) - consumed_balance_names
     journal_names = set(journal_debit) | set(journal_credit)
-    for name in sorted(journal_names - balance_names):
+    for name in sorted((journal_names - balance_names) - ambiguous_journal_names):
         amount = journal_debit.get(name, 0) + journal_credit.get(name, 0)
         differences.append(
             LedgerDifference(
@@ -118,7 +181,7 @@ def reconcile_journal_to_trial_balance(
             )
         )
 
-    for name in sorted(balance_names | journal_names):
+    for name in sorted((balance_names | journal_names) - ambiguous_journal_names):
         for side, journal, trial_balance in (
             ("debit", journal_debit, balance_debit),
             ("credit", journal_credit, balance_credit),

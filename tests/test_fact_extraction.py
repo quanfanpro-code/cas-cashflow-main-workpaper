@@ -54,3 +54,37 @@ def test_fact_ledger_uses_derived_tags_and_keeps_conflict_evidence():
     assert "short_term_borrowing_cash_received" in fact.tags
     assert "investment_acquisition_cash" not in fact.tags
     assert fact.metadata["tag_conflicts"]
+
+
+def test_one_journal_pair_can_supply_distinct_workpaper_adjustments_without_shared_occupancy():
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(),
+        journal_pairs=(JournalPair(
+            "在建工程",
+            "应付职工薪酬",
+            500,
+            {"摘要": "计提工程人员工资"},
+        ),),
+        prior_cashflow=(),
+    )
+
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        {},
+    )
+    employee_expense = next(
+        fact for fact in facts.values()
+        if "employee_compensation_expense" in fact.tags
+    )
+    capex_adjustment = next(
+        fact for fact in facts.values()
+        if "capex_employee_cash" in fact.tags
+    )
+
+    assert employee_expense.amount_minor == 500
+    assert capex_adjustment.amount_minor == 500
+    assert employee_expense.occupancy_key != capex_adjustment.occupancy_key

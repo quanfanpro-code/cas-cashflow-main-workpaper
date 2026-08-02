@@ -5,6 +5,10 @@ from dataclasses import dataclass
 from .contracts import AccountBalance
 
 
+class StatementMappingError(ValueError):
+    """输入科目无法唯一映射到报表项目，修正映射后可以重试。"""
+
+
 @dataclass(frozen=True)
 class MappingRule:
     report_item: str
@@ -58,7 +62,9 @@ class StatementMapping:
         }
         if len(unique_targets) > 1:
             names = "、".join(rule.report_item for rule in matches)
-            raise ValueError(f"科目映射不唯一：{row.account_name} -> {names}")
+            raise StatementMappingError(
+                f"科目映射不唯一：{row.account_name} -> {names}"
+            )
         return matches[0] if matches else None
 
 
@@ -71,6 +77,34 @@ CONTROL_STATEMENT_ITEMS = {
     "持续经营净利润",
     "终止经营净利润",
     "综合收益总额",
+}
+
+
+STANDARD_BALANCE_SHEET_ROLLUPS = {
+    "货币资金": (
+        "库存现金", "银行存款", "其他货币资金",
+    ),
+    "存货": (
+        "材料采购", "在途物资", "原材料", "材料成本差异", "库存商品",
+        "发出商品", "商品进销差价", "委托加工物资", "周转材料", "生产成本",
+        "在产品", "半成品",
+    ),
+    "现金及存放中央银行款项": (
+        "库存现金", "存放中央银行", "法定准备金", "超额存款准备金",
+    ),
+    "发放贷款和垫款": (
+        "公司贷款", "个人贷款", "客户贷款", "贷款及垫款", "发放贷款", "垫款",
+    ),
+    "吸收存款": (
+        "客户存款", "单位存款", "个人存款", "储蓄存款", "吸收存款",
+    ),
+    "结算备付金": ("结算备付金", "客户备付金"),
+    "融出资金": ("融出资金",),
+    "代理买卖证券款": ("代理买卖证券款", "客户交易结算资金"),
+    "保险合同资产": ("保险合同资产", "保险获取现金流量资产"),
+    "保险合同负债": ("保险合同负债", "未到期责任负债", "已发生赔款负债"),
+    "分出再保险合同资产": ("分出再保险合同资产", "分保摊回未到期责任资产", "分保摊回已发生赔款资产"),
+    "分出再保险合同负债": ("分出再保险合同负债",),
 }
 
 
@@ -117,6 +151,21 @@ def with_exact_statement_names(
                 account_name_contains=(item_name,),
                 account_name_equals=(item_name,),
             ))
+    available_balance_items = {
+        str(item_name).strip()
+        for item_name in balance_sheet_names
+        if not is_control_statement_item(item_name)
+    }
+    for report_item, account_names in STANDARD_BALANCE_SHEET_ROLLUPS.items():
+        if report_item not in available_balance_items:
+            continue
+        additions.append(MappingRule(
+            report_item=report_item,
+            statement="balance_sheet",
+            amount_mode="balance",
+            account_name_contains=account_names,
+            account_name_equals=account_names,
+        ))
     return StatementMapping(mapping.rules + tuple(additions))
 
 

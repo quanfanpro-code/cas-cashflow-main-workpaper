@@ -60,3 +60,21 @@ def test_duplicate_allocation_and_bad_cash_change_block():
     assert report.duplicate_allocations
     assert report.cash_change_difference_minor == -20
     assert report.is_blocking
+
+
+def test_unclassified_cash_fact_is_listed_with_its_amount():
+    facts = FactLedger.index((
+        Fact("JP:8", 500, ("journal_pair", "unclassified_cash"), ("journal_pair:8",), "JP:8"),
+    ))
+
+    report = validate_completeness(
+        facts,
+        result([("CF-NET", "cash", 0)]),
+        RulePack("1", EnterpriseType.GENERAL, (), {}, ()),
+        100,
+        100,
+    )
+
+    assert report.is_blocking
+    assert report.unallocated[0].fact_id == "JP:8"
+    assert report.unallocated[0].amount_minor == 500

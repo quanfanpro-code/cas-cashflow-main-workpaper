@@ -130,3 +130,54 @@ def test_material_undetailed_other_monetary_funds_stays_provisional(tmp_path):
 
     assert result.status == RunStatus.PROVISIONAL
     assert any(case.decision_id.startswith("RESTRICTED_CASH:") for case in result.decision_cases)
+
+
+def test_long_term_deposit_is_excluded_from_cash_equivalents():
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(
+            AccountBalance("100299", "银行存款-一年期定期存款", 10_000, 0, 0, 10_000),
+        ),
+        journal_pairs=(),
+        prior_cashflow=(),
+    )
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        CASH_GROUPS,
+    )
+
+    opening, closing, excluded = cash_and_equivalent_control(facts)
+
+    assert opening == 0
+    assert closing == 0
+    assert {fact.metadata["account_name"] for fact in excluded} == {
+        "银行存款-一年期定期存款",
+    }
+    assert all("non_cash_equivalent" in fact.tags for fact in excluded)
+
+
+def test_undetailed_term_deposit_is_not_silently_included():
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(
+            AccountBalance("100298", "银行定期存款", 10_000, 0, 0, 10_000),
+        ),
+        journal_pairs=(),
+        prior_cashflow=(),
+    )
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        CASH_GROUPS,
+    )
+
+    opening, closing, _ = cash_and_equivalent_control(facts)
+
+    assert opening == 0
+    assert closing == 0
+    assert any("cash_equivalent_uncertain" in fact.tags for fact in facts.values())

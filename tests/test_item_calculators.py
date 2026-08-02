@@ -149,6 +149,48 @@ def test_cash_equivalent_balance_selector_excludes_restricted_facts():
     assert result.by_id["CASH"].amount_minor == 100
 
 
+def test_positive_net_component_can_claim_exactly_offsetting_facts_once():
+    facts = FactLedger.index((
+        Fact("IN", 100, ("received",), ("src:in",), "K-IN"),
+        Fact("OUT", 100, ("paid",), ("src:out",), "K-OUT"),
+    ))
+    primary = RuleItem(
+        "PRIMARY", "正向净额", "investing", 1, "V",
+        (RuleComponent(
+            "PRIMARY-C1", "net_fact_amount", 1, "fact_ledger",
+            {
+                "positive_tags_any": ["received"],
+                "negative_tags_any": ["paid"],
+                "positive_only": True,
+                "claim_zero": True,
+            },
+            "exclusive", "net",
+        ),),
+    )
+    reverse = RuleItem(
+        "REVERSE", "反向净额", "investing", 2, "V",
+        (RuleComponent(
+            "REVERSE-C1", "net_fact_amount", 1, "fact_ledger",
+            {
+                "positive_tags_any": ["paid"],
+                "negative_tags_any": ["received"],
+                "positive_only": True,
+            },
+            "exclusive", "net",
+        ),),
+    )
+    pack = RulePack("1", EnterpriseType.GENERAL, (), {}, (primary, reverse))
+
+    calculation = calculate_items(pack, facts)
+
+    assert calculation.by_id["PRIMARY"].amount_minor == 0
+    assert calculation.by_id["REVERSE"].amount_minor == 0
+    assert calculation.allocated == {
+        "K-IN": ("PRIMARY-C1",),
+        "K-OUT": ("PRIMARY-C1",),
+    }
+
+
 def test_statement_value_uses_total_or_details_without_double_counting():
     component = RuleComponent(
         "REV-C1", "statement_value", 1, "audited_statements",

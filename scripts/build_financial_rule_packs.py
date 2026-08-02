@@ -259,6 +259,10 @@ def rebuild_pack(raw: dict, industry: str) -> dict:
     items.extend(financing_in)
     items.append(subtotal("CFF-IN", "筹资活动现金流入小计", "financing", [item["item_id"] for item in financing_in], verification_id))
     financing_out = [copy.deepcopy(by_id[item_id]) for item_id in ("CFF-04", "CFF-05", "CFF-06")]
+    dividend_tags = financing_out[1]["components"][0]["selector"].get("tags_any", [])
+    financing_out[1]["components"][0]["selector"]["tags_any"] = [
+        tag for tag in dividend_tags if tag != "profit_distribution_cash_paid"
+    ]
     if financing_out[-1]["components"]:
         tags = financing_out[-1]["components"][0]["selector"].get("tags_any", [])
         financing_out[-1]["components"][0]["selector"]["tags_any"] = [tag for tag in tags if tag != "financing_issue_cost_cash_paid"]
@@ -326,7 +330,7 @@ def insurance_2023_pack(old_pack: dict) -> dict:
     ])
     for order, item in enumerate(items, 1):
         item["display_order"] = order * 10
-        item["verification_record_id"] = fmt
+        item["verification_record_id"] = f"FV-INSURANCE-2023-{item['item_id']}"
     result["version"] = "1.1.0"
     result["items"] = items
     result["statement_template"] = [{key: item[key] for key in ("item_id", "name", "section", "display_order")} for item in items]
@@ -365,6 +369,26 @@ def format_record(verification_id: str, industry: str, source: str) -> dict:
     }
 
 
+def insurance_2023_records(pack: dict) -> list[dict]:
+    """为现行保险现金流量表的每个项目保留独立核验轨迹。"""
+    source = "财政部财会〔2022〕37号保险公司财务报表格式"
+    records = []
+    for item in pack["items"]:
+        record = format_record(
+            item["verification_record_id"],
+            "insurance_2023",
+            source,
+        )
+        record["cashflow_item_id"] = item["item_id"]
+        record["candidate_formula"]["components"] = [item["name"]]
+        record["corrected_formula"]["components"] = [
+            component["component_id"] for component in item["components"]
+        ]
+        record["reviewed_at"] = "2026-08-03"
+        records.append(record)
+    return records
+
+
 def write_json(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
@@ -387,11 +411,15 @@ def main() -> int:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text("\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n", encoding="utf-8-sig")
     insurance = json.loads((args.source / "rules/insurance_v1.json").read_text(encoding="utf-8-sig"))
-    write_json(args.output / "rules/insurance_2023_v1.json", insurance_2023_pack(insurance))
-    record = format_record("FV-INSURANCE-2023-FORMAT", "insurance_2023", "财政部财会〔2022〕37号保险公司财务报表格式")
+    current_insurance_pack = insurance_2023_pack(insurance)
+    write_json(args.output / "rules/insurance_2023_v1.json", current_insurance_pack)
+    records = insurance_2023_records(current_insurance_pack)
     target = args.output / "references/公式核验/insurance_2023_v1.jsonl"
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(record, ensure_ascii=False) + "\n", encoding="utf-8-sig")
+    target.write_text(
+        "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+        encoding="utf-8-sig",
+    )
     return 0
 
 

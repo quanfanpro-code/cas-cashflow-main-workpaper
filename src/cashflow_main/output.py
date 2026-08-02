@@ -111,7 +111,8 @@ def _write_review_context(ws, start_row: int, review_context: dict[str, object],
     sections = (
         ("未映射科目", "unmapped_accounts", ("科目编码", "科目名称", "期末余额")),
         ("自动判断与待确认事项", "decision_cases", ("事项编号", "是否人工复核", "首选判断", "候选判断", "影响金额", "支持证据", "相反证据", "确认状态")),
-        ("受限资金明细", "restricted_cash", ("期间", "科目名称", "剔除金额", "来源")),
+        ("现金范围剔除明细", "restricted_cash", ("期间", "科目名称", "剔除金额", "来源")),
+        ("未分类现金明细", "unallocated_cash", ("事实编号", "借方科目", "贷方科目", "金额", "来源", "判断依据")),
         ("账务核对差异", "ledger_differences", ("科目名称", "方向", "余额表金额", "序时账金额", "差异", "差异类型")),
     )
     for title, key, headers in sections:
@@ -148,6 +149,15 @@ def _write_review_context(ws, start_row: int, review_context: dict[str, object],
                     row.get("account_name", ""),
                     _display_amount(int(row.get("amount_minor", 0)), display_unit),
                     "、".join(str(value) for value in row.get("source_ids", [])),
+                )
+            elif key == "unallocated_cash":
+                values = (
+                    row.get("fact_id", ""),
+                    row.get("debit_account_name", ""),
+                    row.get("credit_account_name", ""),
+                    _display_amount(int(row.get("amount_minor", 0)), display_unit),
+                    "、".join(str(value) for value in row.get("source_ids", [])),
+                    "、".join(str(value) for value in row.get("evidence", [])) or "未能形成唯一分类",
                 )
             else:
                 values = (

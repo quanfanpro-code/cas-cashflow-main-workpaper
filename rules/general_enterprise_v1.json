@@ -735,33 +735,13 @@
           "source_scope": "fact_ledger",
           "selector": {
             "tags_any": [
-              "operating_tax_cash_paid",
-              "direct_tax_cash_paid"
+              "operating_tax_cash_paid"
             ]
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
           "noncash_exclusions": [],
           "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFO-06-C02",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
-              "capex_tax_cash_paid",
-              "asset_disposal_tax_cash_paid"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [
-            "耕地占用税及长期资产处置税费按业务性质转出"
-          ],
           "restricted_cash_treatment": []
         }
       ]
@@ -929,50 +909,27 @@
       "components": [
         {
           "component_id": "CFI-03-C01",
-          "operation": "fact_amount",
+          "operation": "net_fact_amount",
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "tags_any": [
-              "long_lived_asset_disposal_cash"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-03-C02",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
-              "long_lived_asset_disposal_tax_cash"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-03-C03",
-          "operation": "fact_amount",
-          "sign": 1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
+            "positive_tags_any": [
+              "long_lived_asset_disposal_cash",
               "long_lived_asset_damage_insurance_receipt"
-            ]
+            ],
+            "negative_tags_any": [
+              "long_lived_asset_disposal_tax_cash",
+              "long_lived_asset_disposal_cost_cash"
+            ],
+            "positive_only": true,
+            "claim_zero": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
           "noncash_exclusions": [],
-          "special_adjustments": [],
+          "special_adjustments": [
+            "处置净支出转入支付其他与投资活动有关的现金"
+          ],
           "restricted_cash_treatment": []
         }
       ]
@@ -986,66 +943,27 @@
       "components": [
         {
           "component_id": "CFI-04-C01",
-          "operation": "fact_amount",
+          "operation": "net_fact_amount",
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "tags_any": [
-              "business_disposal_cash_received"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-04-C02",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
-              "disposed_business_cash_and_equivalents"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-04-C03",
-          "operation": "fact_amount",
-          "sign": 1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
+            "positive_tags_any": [
+              "business_disposal_cash_received",
               "prior_business_disposal_cash_received"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-04-C04",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
+            ],
+            "negative_tags_any": [
+              "disposed_business_cash_and_equivalents",
               "business_disposal_cost_cash_paid"
-            ]
+            ],
+            "positive_only": true,
+            "claim_zero": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
           "noncash_exclusions": [],
-          "special_adjustments": [],
+          "special_adjustments": [
+            "处置营业单位净支出转入支付其他与投资活动有关的现金"
+          ],
           "restricted_cash_treatment": []
         }
       ]
@@ -1073,6 +991,29 @@
           "special_adjustments": [
             "取得营业单位支付净额为负数时转入本项目",
             "购买投资价款中包含的已到期股利或利息收回"
+          ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-05-C02",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "negative_tags_any": [
+              "business_acquisition_cash_paid",
+              "prior_business_acquisition_cash_paid"
+            ],
+            "positive_only": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "取得营业单位支付净额为负数时转入本项目"
           ],
           "restricted_cash_treatment": []
         }
@@ -1153,65 +1094,6 @@
           "noncash_exclusions": [],
           "special_adjustments": [],
           "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C03",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_payables",
-              "capex_employee_payables"
-            ],
-            "direction": "opening_minus_closing"
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C04",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_prepayments"
-            ],
-            "direction": "closing_minus_opening"
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C05",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
-              "capitalized_interest_cash",
-              "noncash_long_lived_asset_addition",
-              "right_of_use_asset_noncash_addition"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [
-            "投资投入、非货币性交换和债务重组形成的长期资产",
-            "融资租入或使用权资产初始确认的非现金增加"
-          ],
-          "special_adjustments": [
-            "资本化利息转入分配股利、利润或偿付利息支付的现金",
-            "偿还租赁负债转入筹资活动"
-          ],
-          "restricted_cash_treatment": []
         }
       ]
     },
@@ -1256,50 +1138,26 @@
       "components": [
         {
           "component_id": "CFI-08-C01",
-          "operation": "fact_amount",
+          "operation": "net_fact_amount",
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "tags_any": [
-              "business_acquisition_cash_paid"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-08-C02",
-          "operation": "fact_amount",
-          "sign": -1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
-              "acquired_business_cash_and_equivalents"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "net",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-08-C03",
-          "operation": "fact_amount",
-          "sign": 1,
-          "source_scope": "fact_ledger",
-          "selector": {
-            "tags_any": [
+            "positive_tags_any": [
+              "business_acquisition_cash_paid",
               "prior_business_acquisition_cash_paid"
-            ]
+            ],
+            "negative_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "positive_only": true,
+            "claim_zero": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
           "noncash_exclusions": [],
-          "special_adjustments": [],
+          "special_adjustments": [
+            "取得营业单位为净现金流入时转入收到其他与投资活动有关的现金"
+          ],
           "restricted_cash_treatment": []
         }
       ]
@@ -1327,6 +1185,54 @@
           "special_adjustments": [
             "处置营业单位或长期资产收回净额为负数时转入本项目",
             "投资价款中包含的已到期股利或利息支付额"
+          ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-09-C02",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "long_lived_asset_disposal_tax_cash",
+              "long_lived_asset_disposal_cost_cash"
+            ],
+            "negative_tags_any": [
+              "long_lived_asset_disposal_cash",
+              "long_lived_asset_damage_insurance_receipt"
+            ],
+            "positive_only": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "长期资产处置净额为负数时转入本项目"
+          ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-09-C03",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "disposed_business_cash_and_equivalents",
+              "business_disposal_cost_cash_paid"
+            ],
+            "negative_tags_any": [
+              "business_disposal_cash_received",
+              "prior_business_disposal_cash_received"
+            ],
+            "positive_only": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "营业单位处置净额为负数时转入本项目"
           ],
           "restricted_cash_treatment": []
         }
@@ -1594,7 +1500,6 @@
           "selector": {
             "tags_any": [
               "dividend_cash_paid",
-              "profit_distribution_cash_paid",
               "interest_cash_paid"
             ]
           },

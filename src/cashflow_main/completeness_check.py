@@ -49,7 +49,11 @@ def validate_completeness(
     unallocated = tuple(
         ValidationIssue("unallocated", "控制事实未分配", fact.fact_id, fact.amount_minor)
         for fact in facts.values()
-        if ("control" in fact.tags or controlled_tags.intersection(fact.tags))
+        if (
+            "control" in fact.tags
+            or "unclassified_cash" in fact.tags
+            or controlled_tags.intersection(fact.tags)
+        )
         and fact.amount_minor
         and fact.occupancy_key not in calculation.allocated
     )

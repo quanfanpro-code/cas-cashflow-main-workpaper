@@ -1748,7 +1748,6 @@
           "selector": {
             "tags_any": [
               "dividend_cash_paid",
-              "profit_distribution_cash_paid",
               "interest_cash_paid"
             ],
             "exclude_tags_any": [
