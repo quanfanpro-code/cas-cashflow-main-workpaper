@@ -1,0 +1,28 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "verification_id",
+    "enterprise_type",
+    "cashflow_item_id",
+    "candidate_formula",
+    "evidence",
+    "issues",
+    "corrected_formula",
+    "conclusion",
+    "reviewed_at"
+  ],
+  "properties": {
+    "verification_id": {"type": "string"},
+    "enterprise_type": {
+      "enum": ["general", "bank", "securities", "insurance", "other_financial"]
+    },
+    "cashflow_item_id": {"type": "string"},
+    "candidate_formula": {"type": "object"},
+    "evidence": {"type": "object"},
+    "issues": {"type": "array"},
+    "corrected_formula": {"type": "object"},
+    "conclusion": {"enum": ["verified", "unresolved"]},
+    "reviewed_at": {"type": "string"}
+  }
+}

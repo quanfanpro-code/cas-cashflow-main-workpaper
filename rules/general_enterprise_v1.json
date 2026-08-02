@@ -1,0 +1,1829 @@
+﻿{
+  "version": "1.1.0",
+  "enterprise_type": "general",
+  "statement_template": [
+    {
+      "item_id": "CFO-01",
+      "name": "销售商品、提供劳务收到的现金",
+      "section": "operating",
+      "display_order": 10
+    },
+    {
+      "item_id": "CFO-02",
+      "name": "收到的税费返还",
+      "section": "operating",
+      "display_order": 20
+    },
+    {
+      "item_id": "CFO-03",
+      "name": "收到其他与经营活动有关的现金",
+      "section": "operating",
+      "display_order": 30
+    },
+    {
+      "item_id": "CFO-IN",
+      "name": "经营活动现金流入小计",
+      "section": "operating",
+      "display_order": 40
+    },
+    {
+      "item_id": "CFO-04",
+      "name": "购买商品、接受劳务支付的现金",
+      "section": "operating",
+      "display_order": 50
+    },
+    {
+      "item_id": "CFO-05",
+      "name": "支付给职工以及为职工支付的现金",
+      "section": "operating",
+      "display_order": 60
+    },
+    {
+      "item_id": "CFO-06",
+      "name": "支付的各项税费",
+      "section": "operating",
+      "display_order": 70
+    },
+    {
+      "item_id": "CFO-07",
+      "name": "支付其他与经营活动有关的现金",
+      "section": "operating",
+      "display_order": 80
+    },
+    {
+      "item_id": "CFO-OUT",
+      "name": "经营活动现金流出小计",
+      "section": "operating",
+      "display_order": 90
+    },
+    {
+      "item_id": "CFO-NET",
+      "name": "经营活动产生的现金流量净额",
+      "section": "operating",
+      "display_order": 100
+    },
+    {
+      "item_id": "CFI-01",
+      "name": "收回投资收到的现金",
+      "section": "investing",
+      "display_order": 110
+    },
+    {
+      "item_id": "CFI-02",
+      "name": "取得投资收益收到的现金",
+      "section": "investing",
+      "display_order": 120
+    },
+    {
+      "item_id": "CFI-03",
+      "name": "处置固定资产、无形资产和其他长期资产收回的现金净额",
+      "section": "investing",
+      "display_order": 130
+    },
+    {
+      "item_id": "CFI-04",
+      "name": "处置子公司及其他营业单位收到的现金净额",
+      "section": "investing",
+      "display_order": 140
+    },
+    {
+      "item_id": "CFI-05",
+      "name": "收到其他与投资活动有关的现金",
+      "section": "investing",
+      "display_order": 150
+    },
+    {
+      "item_id": "CFI-IN",
+      "name": "投资活动现金流入小计",
+      "section": "investing",
+      "display_order": 160
+    },
+    {
+      "item_id": "CFI-06",
+      "name": "购建固定资产、无形资产和其他长期资产支付的现金",
+      "section": "investing",
+      "display_order": 170
+    },
+    {
+      "item_id": "CFI-07",
+      "name": "投资支付的现金",
+      "section": "investing",
+      "display_order": 180
+    },
+    {
+      "item_id": "CFI-08",
+      "name": "取得子公司及其他营业单位支付的现金净额",
+      "section": "investing",
+      "display_order": 190
+    },
+    {
+      "item_id": "CFI-09",
+      "name": "支付其他与投资活动有关的现金",
+      "section": "investing",
+      "display_order": 200
+    },
+    {
+      "item_id": "CFI-OUT",
+      "name": "投资活动现金流出小计",
+      "section": "investing",
+      "display_order": 210
+    },
+    {
+      "item_id": "CFI-NET",
+      "name": "投资活动产生的现金流量净额",
+      "section": "investing",
+      "display_order": 220
+    },
+    {
+      "item_id": "CFF-01",
+      "name": "吸收投资收到的现金",
+      "section": "financing",
+      "display_order": 230
+    },
+    {
+      "item_id": "CFF-02",
+      "name": "取得借款收到的现金",
+      "section": "financing",
+      "display_order": 240
+    },
+    {
+      "item_id": "CFF-03",
+      "name": "收到其他与筹资活动有关的现金",
+      "section": "financing",
+      "display_order": 250
+    },
+    {
+      "item_id": "CFF-IN",
+      "name": "筹资活动现金流入小计",
+      "section": "financing",
+      "display_order": 260
+    },
+    {
+      "item_id": "CFF-04",
+      "name": "偿还债务支付的现金",
+      "section": "financing",
+      "display_order": 270
+    },
+    {
+      "item_id": "CFF-05",
+      "name": "分配股利、利润或偿付利息支付的现金",
+      "section": "financing",
+      "display_order": 280
+    },
+    {
+      "item_id": "CFF-06",
+      "name": "支付其他与筹资活动有关的现金",
+      "section": "financing",
+      "display_order": 290
+    },
+    {
+      "item_id": "CFF-OUT",
+      "name": "筹资活动现金流出小计",
+      "section": "financing",
+      "display_order": 300
+    },
+    {
+      "item_id": "CFF-NET",
+      "name": "筹资活动产生的现金流量净额",
+      "section": "financing",
+      "display_order": 310
+    },
+    {
+      "item_id": "FX",
+      "name": "汇率变动对现金及现金等价物的影响",
+      "section": "cash",
+      "display_order": 320
+    },
+    {
+      "item_id": "NET-CASH",
+      "name": "现金及现金等价物净增加额",
+      "section": "cash",
+      "display_order": 330
+    },
+    {
+      "item_id": "OPENING-CASH",
+      "name": "加：期初现金及现金等价物余额",
+      "section": "cash",
+      "display_order": 340
+    },
+    {
+      "item_id": "CLOSING-CASH",
+      "name": "期末现金及现金等价物余额",
+      "section": "cash",
+      "display_order": 350
+    }
+  ],
+  "account_groups": {
+    "cash_and_equivalents": [
+      "库存现金",
+      "银行存款",
+      "其他货币资金",
+      "现金等价物"
+    ],
+    "notes_receivable": [
+      "应收票据"
+    ],
+    "accounts_receivable": [
+      "应收账款"
+    ],
+    "contract_assets": [
+      "合同资产"
+    ],
+    "advances_from_customers": [
+      "预收账款"
+    ],
+    "contract_liabilities": [
+      "合同负债"
+    ],
+    "inventory": [
+      "存货"
+    ],
+    "trade_payables": [
+      "应付账款"
+    ],
+    "notes_payable": [
+      "应付票据"
+    ],
+    "trade_prepayments": [
+      "预付账款"
+    ],
+    "employee_benefits_payable_operating": [
+      "应付职工薪酬"
+    ],
+    "capex_payables": [
+      "应付工程款",
+      "应付设备款"
+    ],
+    "capex_employee_payables": [
+      "在建工程人员应付职工薪酬"
+    ],
+    "capex_prepayments": [
+      "预付工程款",
+      "预付设备款"
+    ]
+  },
+  "statement_mapping": [
+    {
+      "report_item": "货币资金",
+      "statement": "balance_sheet",
+      "amount_mode": "balance",
+      "account_code_prefixes": [
+        "1001",
+        "1002",
+        "1012"
+      ]
+    },
+    {
+      "report_item": "营业收入",
+      "statement": "income_statement",
+      "amount_mode": "credit_minus_debit",
+      "account_code_prefixes": [
+        "6001",
+        "6051"
+      ]
+    },
+    {
+      "report_item": "营业成本",
+      "statement": "income_statement",
+      "amount_mode": "debit_minus_credit",
+      "account_code_prefixes": [
+        "6401",
+        "6402"
+      ]
+    }
+  ],
+  "control_destinations": [
+    {
+      "source": "audited_balance_sheet_changes",
+      "required": true
+    },
+    {
+      "source": "audited_income_statement",
+      "required": true
+    },
+    {
+      "source": "adjustment_bridge",
+      "required": true
+    }
+  ],
+  "items": [
+    {
+      "item_id": "CFO-01",
+      "name": "销售商品、提供劳务收到的现金",
+      "section": "operating",
+      "display_order": 10,
+      "verification_record_id": "FV-G-CFO-01-R2",
+      "components": [
+        {
+          "component_id": "CFO-01-C01",
+          "operation": "statement_value",
+          "sign": 1,
+          "source_scope": "audited_statements",
+          "selector": {
+          "item_name_groups": [
+            [
+              "营业收入"
+            ],
+            [
+              "主营业务收入",
+              "其他业务收入"
+            ]
+            ],
+            "period": "current"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-01-C02",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "sales_output_tax"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-01-C03",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "notes_receivable",
+              "accounts_receivable",
+              "contract_assets"
+            ],
+            "direction": "opening_minus_closing"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-01-C04",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "advances_from_customers",
+              "contract_liabilities"
+            ],
+            "direction": "closing_minus_opening"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-01-C05",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "recovered_written_off_receivable"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-01-C06",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "bill_discount_interest",
+              "endorsed_note",
+              "noncash_receivable_settlement",
+              "receivable_payable_offset",
+              "receivable_write_off",
+              "non_operating_receivable_change"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "票据背书",
+            "债务重组取得非现金资产",
+            "应收应付对冲",
+            "坏账核销"
+          ],
+          "special_adjustments": [
+            "销售退回实际支付现金作为减项"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-02",
+      "name": "收到的税费返还",
+      "section": "operating",
+      "display_order": 20,
+      "verification_record_id": "FV-G-CFO-02",
+      "components": [
+        {
+          "component_id": "CFO-02-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "cash_tax_refund"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "增值税留抵退税收到额纳入",
+            "缴回并继续抵扣的留抵退税不作为本项目流入"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-03",
+      "name": "收到其他与经营活动有关的现金",
+      "section": "operating",
+      "display_order": 30,
+      "verification_record_id": "FV-G-CFO-03",
+      "components": [
+        {
+          "component_id": "CFO-03-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "operating_interest_receipt",
+              "operating_lease_receipt",
+              "government_grant_receipt",
+              "fine_or_compensation_receipt",
+              "other_operating_receipt"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "递延收益确认等非收现政府补助变动"
+          ],
+          "special_adjustments": [
+            "与资产相关及与收益相关的政府补助实际收现均纳入"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-IN",
+      "name": "经营活动现金流入小计",
+      "section": "operating",
+      "display_order": 40,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFO-01",
+        "CFO-02",
+        "CFO-03"
+      ],
+      "components": [
+        {
+          "component_id": "CFO-IN-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFO-01",
+              "CFO-02",
+              "CFO-03"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-04",
+      "name": "购买商品、接受劳务支付的现金",
+      "section": "operating",
+      "display_order": 50,
+      "verification_record_id": "FV-G-CFO-04",
+      "components": [
+        {
+          "component_id": "CFO-04-C01",
+          "operation": "statement_value",
+          "sign": 1,
+          "source_scope": "audited_statements",
+          "selector": {
+          "item_name_groups": [
+            [
+              "营业成本"
+            ],
+            [
+              "主营业务成本",
+              "其他业务成本"
+            ]
+            ],
+            "period": "current"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C02",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "purchase_input_tax"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C03",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "inventory"
+            ],
+            "direction": "closing_minus_opening"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C04",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "trade_payables",
+              "notes_payable"
+            ],
+            "direction": "opening_minus_closing"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C05",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "trade_prepayments"
+            ],
+            "direction": "closing_minus_opening"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C06",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "inventory_noncash_increase",
+              "inventory_employee_cost",
+              "inventory_depreciation_cost",
+              "inventory_to_capex_or_investment",
+              "payable_noncash_settlement",
+              "receivable_payable_offset",
+              "capex_payable_change",
+              "capex_prepayment_change"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "非货币性交换、债务重组或投资投入增加存货",
+            "存货中的折旧和未付现职工薪酬"
+          ],
+          "special_adjustments": [
+            "工程设备往来从经营采购中转入投资活动"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-05",
+      "name": "支付给职工以及为职工支付的现金",
+      "section": "operating",
+      "display_order": 60,
+      "verification_record_id": "FV-G-CFO-05",
+      "components": [
+        {
+          "component_id": "CFO-05-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "employee_compensation_expense"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-05-C02",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "employee_benefits_payable_operating"
+            ],
+            "direction": "opening_minus_closing"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-05-C03",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "capex_employee_cash",
+              "noncash_employee_benefit"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "非货币性职工薪酬"
+          ],
+          "special_adjustments": [
+            "在建工程及开发支出人员现金转入投资活动"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-06",
+      "name": "支付的各项税费",
+      "section": "operating",
+      "display_order": 70,
+      "verification_record_id": "FV-G-CFO-06",
+      "components": [
+        {
+          "component_id": "CFO-06-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "operating_tax_cash_paid",
+              "direct_tax_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-06-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "capex_tax_cash_paid",
+              "asset_disposal_tax_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "耕地占用税及长期资产处置税费按业务性质转出"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-07",
+      "name": "支付其他与经营活动有关的现金",
+      "section": "operating",
+      "display_order": 80,
+      "verification_record_id": "FV-G-CFO-07",
+      "components": [
+        {
+          "component_id": "CFO-07-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "other_operating_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "折旧、摊销、计提减值等非付现费用",
+            "已列入职工、税费、采购或投资筹资项目的金额"
+          ],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-OUT",
+      "name": "经营活动现金流出小计",
+      "section": "operating",
+      "display_order": 90,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFO-04",
+        "CFO-05",
+        "CFO-06",
+        "CFO-07"
+      ],
+      "components": [
+        {
+          "component_id": "CFO-OUT-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFO-04",
+              "CFO-05",
+              "CFO-06",
+              "CFO-07"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFO-NET",
+      "name": "经营活动产生的现金流量净额",
+      "section": "operating",
+      "display_order": 100,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFO-IN",
+        "CFO-OUT"
+      ],
+      "components": [
+        {
+          "component_id": "CFO-NET-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFO-IN",
+              "CFO-OUT"
+            ],
+            "signs": [
+              1,
+              -1
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-01",
+      "name": "收回投资收到的现金",
+      "section": "investing",
+      "display_order": 110,
+      "verification_record_id": "FV-G-CFI-01",
+      "components": [
+        {
+          "component_id": "CFI-01-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "investment_principal_recovered"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "收回非现金资产",
+            "现金等价物到期转换"
+          ],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-02",
+      "name": "取得投资收益收到的现金",
+      "section": "investing",
+      "display_order": 120,
+      "verification_record_id": "FV-G-CFI-02",
+      "components": [
+        {
+          "component_id": "CFI-02-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "cash_dividend_received",
+              "investment_interest_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "应收股利或应收利息的非现金确认"
+          ],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-03",
+      "name": "处置固定资产、无形资产和其他长期资产收回的现金净额",
+      "section": "investing",
+      "display_order": 130,
+      "verification_record_id": "FV-G-CFI-03",
+      "components": [
+        {
+          "component_id": "CFI-03-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "long_lived_asset_disposal_cash"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-03-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "long_lived_asset_disposal_tax_cash"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-03-C03",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "long_lived_asset_damage_insurance_receipt"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-04",
+      "name": "处置子公司及其他营业单位收到的现金净额",
+      "section": "investing",
+      "display_order": 140,
+      "verification_record_id": "FV-G-CFI-04-R2",
+      "components": [
+        {
+          "component_id": "CFI-04-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "business_disposal_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-04-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "disposed_business_cash_and_equivalents"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-04-C03",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "prior_business_disposal_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-04-C04",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "business_disposal_cost_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-05",
+      "name": "收到其他与投资活动有关的现金",
+      "section": "investing",
+      "display_order": 150,
+      "verification_record_id": "FV-G-CFI-05",
+      "components": [
+        {
+          "component_id": "CFI-05-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "other_investing_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "取得营业单位支付净额为负数时转入本项目",
+            "购买投资价款中包含的已到期股利或利息收回"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-IN",
+      "name": "投资活动现金流入小计",
+      "section": "investing",
+      "display_order": 160,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFI-01",
+        "CFI-02",
+        "CFI-03",
+        "CFI-04",
+        "CFI-05"
+      ],
+      "components": [
+        {
+          "component_id": "CFI-IN-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFI-01",
+              "CFI-02",
+              "CFI-03",
+              "CFI-04",
+              "CFI-05"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-06",
+      "name": "购建固定资产、无形资产和其他长期资产支付的现金",
+      "section": "investing",
+      "display_order": 170,
+      "verification_record_id": "FV-G-CFI-06",
+      "components": [
+        {
+          "component_id": "CFI-06-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "long_lived_asset_cash_addition"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-06-C02",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "long_lived_asset_input_tax_cash"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-06-C03",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "capex_payables",
+              "capex_employee_payables"
+            ],
+            "direction": "opening_minus_closing"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-06-C04",
+          "operation": "balance_change",
+          "sign": 1,
+          "source_scope": "trial_balance",
+          "selector": {
+            "account_groups": [
+              "capex_prepayments"
+            ],
+            "direction": "closing_minus_opening"
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-06-C05",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "capitalized_interest_cash",
+              "noncash_long_lived_asset_addition",
+              "right_of_use_asset_noncash_addition"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "投资投入、非货币性交换和债务重组形成的长期资产",
+            "融资租入或使用权资产初始确认的非现金增加"
+          ],
+          "special_adjustments": [
+            "资本化利息转入分配股利、利润或偿付利息支付的现金",
+            "偿还租赁负债转入筹资活动"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-07",
+      "name": "投资支付的现金",
+      "section": "investing",
+      "display_order": 180,
+      "verification_record_id": "FV-G-CFI-07",
+      "components": [
+        {
+          "component_id": "CFI-07-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "investment_acquisition_cash",
+              "investment_transaction_cost_cash"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "取得现金等价物",
+            "非现金投资",
+            "购买营业单位"
+          ],
+          "special_adjustments": [
+            "设立子公司或其他营业单位的出资纳入本项目"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-08",
+      "name": "取得子公司及其他营业单位支付的现金净额",
+      "section": "investing",
+      "display_order": 190,
+      "verification_record_id": "FV-G-CFI-08",
+      "components": [
+        {
+          "component_id": "CFI-08-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "business_acquisition_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-08-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-08-C03",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "prior_business_acquisition_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-09",
+      "name": "支付其他与投资活动有关的现金",
+      "section": "investing",
+      "display_order": 200,
+      "verification_record_id": "FV-G-CFI-09",
+      "components": [
+        {
+          "component_id": "CFI-09-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "other_investing_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "处置营业单位或长期资产收回净额为负数时转入本项目",
+            "投资价款中包含的已到期股利或利息支付额"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-OUT",
+      "name": "投资活动现金流出小计",
+      "section": "investing",
+      "display_order": 210,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFI-06",
+        "CFI-07",
+        "CFI-08",
+        "CFI-09"
+      ],
+      "components": [
+        {
+          "component_id": "CFI-OUT-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFI-06",
+              "CFI-07",
+              "CFI-08",
+              "CFI-09"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFI-NET",
+      "name": "投资活动产生的现金流量净额",
+      "section": "investing",
+      "display_order": 220,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFI-IN",
+        "CFI-OUT"
+      ],
+      "components": [
+        {
+          "component_id": "CFI-NET-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFI-IN",
+              "CFI-OUT"
+            ],
+            "signs": [
+              1,
+              -1
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-01",
+      "name": "吸收投资收到的现金",
+      "section": "financing",
+      "display_order": 230,
+      "verification_record_id": "FV-G-CFF-01-R2",
+      "components": [
+        {
+          "component_id": "CFF-01-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "equity_investment_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFF-01-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "equity_issue_cost_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "从吸收投资收到的现金中扣除直接支付的股票发行费用"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-02",
+      "name": "取得借款收到的现金",
+      "section": "financing",
+      "display_order": 240,
+      "verification_record_id": "FV-G-CFF-02-R2",
+      "components": [
+        {
+          "component_id": "CFF-02-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "short_term_borrowing_cash_received",
+              "long_term_borrowing_cash_received",
+              "bond_issue_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "债券发行收入扣除直接支付的发行费用后纳入"
+          ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFF-02-C02",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "bond_issue_cost_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "从发行债券收到的现金中扣除直接支付的债券发行费用"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-03",
+      "name": "收到其他与筹资活动有关的现金",
+      "section": "financing",
+      "display_order": 250,
+      "verification_record_id": "FV-G-CFF-03",
+      "components": [
+        {
+          "component_id": "CFF-03-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "other_financing_cash_received"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "融资租赁等具有筹资实质的其他收现纳入"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-IN",
+      "name": "筹资活动现金流入小计",
+      "section": "financing",
+      "display_order": 260,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFF-01",
+        "CFF-02",
+        "CFF-03"
+      ],
+      "components": [
+        {
+          "component_id": "CFF-IN-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFF-01",
+              "CFF-02",
+              "CFF-03"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-04",
+      "name": "偿还债务支付的现金",
+      "section": "financing",
+      "display_order": 270,
+      "verification_record_id": "FV-G-CFF-04",
+      "components": [
+        {
+          "component_id": "CFF-04-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "debt_principal_cash_repaid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [
+            "债务重组非现金清偿"
+          ],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-05",
+      "name": "分配股利、利润或偿付利息支付的现金",
+      "section": "financing",
+      "display_order": 280,
+      "verification_record_id": "FV-G-CFF-05",
+      "components": [
+        {
+          "component_id": "CFF-05-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "dividend_cash_paid",
+              "profit_distribution_cash_paid",
+              "interest_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "费用化和资本化借款利息均纳入"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-06",
+      "name": "支付其他与筹资活动有关的现金",
+      "section": "financing",
+      "display_order": 290,
+      "verification_record_id": "FV-G-CFF-06",
+      "components": [
+        {
+          "component_id": "CFF-06-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "lease_liability_cash_paid",
+              "other_financing_cash_paid"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "新租赁准则下偿还租赁负债本金和利息纳入",
+            "票据贴现具有筹资实质时纳入"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-OUT",
+      "name": "筹资活动现金流出小计",
+      "section": "financing",
+      "display_order": 300,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFF-04",
+        "CFF-05",
+        "CFF-06"
+      ],
+      "components": [
+        {
+          "component_id": "CFF-OUT-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFF-04",
+              "CFF-05",
+              "CFF-06"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "CFF-NET",
+      "name": "筹资活动产生的现金流量净额",
+      "section": "financing",
+      "display_order": 310,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFF-IN",
+        "CFF-OUT"
+      ],
+      "components": [
+        {
+          "component_id": "CFF-NET-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFF-IN",
+              "CFF-OUT"
+            ],
+            "signs": [
+              1,
+              -1
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "FX",
+      "name": "汇率变动对现金及现金等价物的影响",
+      "section": "cash",
+      "display_order": 320,
+      "verification_record_id": "FV-G-FX",
+      "components": [
+        {
+          "component_id": "FX-C01",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "cash_exchange_effect"
+            ]
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金外币项目形成的汇兑损益"
+          ],
+          "special_adjustments": [
+            "优先使用企业准确统计；否则按现金平均余额和汇率变动估算"
+          ],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "NET-CASH",
+      "name": "现金及现金等价物净增加额",
+      "section": "cash",
+      "display_order": 330,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [
+        "CFO-NET",
+        "CFI-NET",
+        "CFF-NET",
+        "FX"
+      ],
+      "components": [
+        {
+          "component_id": "NET-CASH-C01",
+          "operation": "subtotal",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "item_ids": [
+              "CFO-NET",
+              "CFI-NET",
+              "CFF-NET",
+              "FX"
+            ]
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": []
+        }
+      ]
+    },
+    {
+      "item_id": "OPENING-CASH",
+      "name": "加：期初现金及现金等价物余额",
+      "section": "cash",
+      "display_order": 340,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [],
+      "components": [
+        {
+          "component_id": "OPENING-CASH-C01",
+          "operation": "cash_equivalent_balance",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "period": "opening",
+            "exclude_restricted": true
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": [
+            "按科目明细剔除冻结、质押、保证金等受限资金"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "CLOSING-CASH",
+      "name": "期末现金及现金等价物余额",
+      "section": "cash",
+      "display_order": 350,
+      "verification_record_id": "FV-G-CONTROL",
+      "is_subtotal": true,
+      "subtotal_of": [],
+      "components": [
+        {
+          "component_id": "CLOSING-CASH-C01",
+          "operation": "cash_equivalent_balance",
+          "sign": 1,
+          "source_scope": "calculated_items",
+          "selector": {
+            "period": "closing",
+            "exclude_restricted": true
+          },
+          "occupancy_policy": "shared_control",
+          "gross_or_net": "not_applicable",
+          "noncash_exclusions": [],
+          "special_adjustments": [],
+          "restricted_cash_treatment": [
+            "按科目明细剔除冻结、质押、保证金等受限资金"
+          ]
+        }
+      ]
+    }
+  ]
+}

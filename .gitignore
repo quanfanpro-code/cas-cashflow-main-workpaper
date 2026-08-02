@@ -1,0 +1,27 @@
+﻿# Python缓存和构建产物
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+.venv/
+
+# 编辑器和系统文件
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# 本地运行产物
+现金流量表运行/
+
+# 仅供本地复核的材料，不属于开源发布
+/2026-08-02-cashflow-main-repair-review.md
+/docs/reviews/
+/references/依据/三套资料可检索摘录.jsonl
+/references/知识库/现金流量表相关内容汇编.md
+

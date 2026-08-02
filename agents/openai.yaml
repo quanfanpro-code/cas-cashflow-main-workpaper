@@ -1,0 +1,6 @@
+﻿interface:
+  display_name: "现金流量表主表工作底稿"
+  short_description: "自动编制现金流量表正表及可复核的计算验证底稿"
+  default_prompt: "Use $cas-cashflow-main-workpaper to compile a cash flow statement main table and its visible calculation verification workpaper."
+policy:
+  allow_implicit_invocation: true
