@@ -16,7 +16,7 @@ def save(path: Path, headers, rows=()):
     wb.save(path)
 
 
-def build_case(tmp_path, *, enterprise_type, period, opening_cash, closing_cash, other_name, other_opening, other_debit, other_credit, other_closing, debit_name, credit_name, amount, statement):
+def build_case(tmp_path, *, enterprise_type, period, opening_cash, closing_cash, other_name, other_opening, other_debit, other_credit, other_closing, debit_name, credit_name, amount, statement, summary=""):
     bs = tmp_path / "资产负债表.xlsx"
     bs_rows = [("货币资金", closing_cash, opening_cash)]
     if statement == "balance_sheet":
@@ -33,7 +33,7 @@ def build_case(tmp_path, *, enterprise_type, period, opening_cash, closing_cash,
         ("9001", other_name, other_opening, other_debit, other_credit, other_closing),
     ])
     journal = tmp_path / "一借一贷.xlsx"
-    save(journal, ["借方科目", "贷方科目", "配对金额"], [(debit_name, credit_name, amount)])
+    save(journal, ["借方科目", "贷方科目", "配对金额", "摘要"], [(debit_name, credit_name, amount, summary)])
     prior = tmp_path / "上期现流.xlsx"
     save(prior, ["项目", "本期数"])
     return RunConfig(
@@ -97,4 +97,32 @@ def test_financial_industry_nonzero_item_runs_full_pipeline(
     assert result.calculation.by_id[item_id].amount_minor == expected
     expected_change = (closing_cash - opening_cash) * 100
     assert result.calculation.by_id["NET-CASH"].amount_minor == expected_change
+    assert result.validation_report.cash_change_difference_minor == 0
+
+
+def test_financial_business_acquisition_is_routed_to_other_investing_cash_paid(tmp_path):
+    config = build_case(
+        tmp_path,
+        enterprise_type=EnterpriseType.BANK,
+        period="2025年度",
+        opening_cash=100,
+        closing_cash=0,
+        other_name="长期股权投资",
+        other_opening=0,
+        other_debit=100,
+        other_credit=0,
+        other_closing=100,
+        debit_name="长期股权投资",
+        credit_name="银行存款",
+        amount=100,
+        statement="balance_sheet",
+        summary="取得子公司支付现金价款",
+    )
+
+    result = prepare_run(config, tmp_path / "run")
+
+    assert result.status == RunStatus.VALIDATED
+    assert result.calculation.by_id["CFI-07"].amount_minor == 0
+    assert result.calculation.by_id["CFI-09"].amount_minor == 10_000
+    assert result.calculation.by_id["NET-CASH"].amount_minor == -10_000
     assert result.validation_report.cash_change_difference_minor == 0

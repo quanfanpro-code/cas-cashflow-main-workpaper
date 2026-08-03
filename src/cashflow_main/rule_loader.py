@@ -12,10 +12,6 @@ from .contracts import EnterpriseType
 ALLOWED_OPERATIONS = {
     "statement_value",
     "balance_change",
-    "debit_turnover",
-    "credit_turnover",
-    "paired_turnover",
-    "adjustment_amount",
     "fact_amount",
     "net_fact_amount",
     "subtotal",

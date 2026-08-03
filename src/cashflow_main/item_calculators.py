@@ -1,6 +1,7 @@
 ﻿"""按已核验规则逐组成计算现金流量表项目，不执行任意表达式。"""
 
 from dataclasses import dataclass, field
+import re
 
 from .fact_extraction import Fact, FactLedger
 from .rule_loader import RuleComponent, RulePack
@@ -8,6 +9,13 @@ from .rule_loader import RuleComponent, RulePack
 
 class AllocationError(ValueError):
     pass
+
+
+def _is_account_or_subaccount(account_name: object, parent_name: object) -> bool:
+    normalize = lambda value: re.sub(r"[\s_—－-]+", "", str(value or "")).lower()
+    account = normalize(account_name)
+    parent = normalize(parent_name)
+    return bool(parent) and account.startswith(parent)
 
 
 @dataclass(frozen=True)
@@ -87,7 +95,10 @@ def _matches(
             for group in selector["account_groups"]
             for name in account_groups.get(group, [])
         }
-        if not any(name in str(metadata.get("account_name", "")) for name in allowed_names):
+        if not any(
+            _is_account_or_subaccount(metadata.get("account_name", ""), name)
+            for name in allowed_names
+        ):
             return False
     return True
 
@@ -103,14 +114,6 @@ def _select(
         candidates = [f for f in facts.values() if "statement" in f.tags]
     elif operation == "balance_change":
         candidates = [f for f in facts.values() if "closing_change" in f.tags]
-    elif operation == "debit_turnover":
-        candidates = [f for f in facts.values() if "debit_turnover" in f.tags]
-    elif operation == "credit_turnover":
-        candidates = [f for f in facts.values() if "credit_turnover" in f.tags]
-    elif operation == "paired_turnover":
-        candidates = [f for f in facts.values() if "journal_pair" in f.tags]
-    elif operation == "adjustment_amount":
-        candidates = [f for f in facts.values() if "adjustment" in f.tags]
     elif operation == "cash_equivalent_balance":
         period_kind = {"opening": "opening", "closing": "closing"}.get(str(selector.get("period")))
         cash_names = account_groups.get("cash_and_equivalents", [])
@@ -120,7 +123,10 @@ def _select(
             if f.metadata.get("kind") == period_kind
             and (
                 "cash_equivalent" in f.tags
-                or any(name in str(f.metadata.get("account_name", "")) for name in cash_names)
+                or any(
+                    _is_account_or_subaccount(f.metadata.get("account_name", ""), name)
+                    for name in cash_names
+                )
             )
             and not (
                 selector.get("exclude_restricted", True)

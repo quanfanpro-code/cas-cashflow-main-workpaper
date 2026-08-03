@@ -15,10 +15,6 @@ from .pipeline import RunConfig
 _OPERATION_NAMES = {
     "statement_value": "审定报表取数",
     "balance_change": "余额变动",
-    "debit_turnover": "借方发生额",
-    "credit_turnover": "贷方发生额",
-    "paired_turnover": "序时账配对金额",
-    "adjustment_amount": "调整事项",
     "fact_amount": "补充事实取数",
     "net_fact_amount": "正负现金事实净额",
     "subtotal": "已计算项目汇总",

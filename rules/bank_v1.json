@@ -1268,6 +1268,63 @@
             "购买投资价款中包含的已到期股利或利息收回"
           ],
           "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-05-BUSINESS-DISPOSAL",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "business_disposal_cash_received",
+              "prior_business_disposal_cash_received"
+            ],
+            "negative_tags_any": [
+              "disposed_business_cash_and_equivalents",
+              "business_disposal_cost_cash_paid"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-05-BUSINESS-ACQUISITION",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "negative_tags_any": [
+              "business_acquisition_cash_paid",
+              "prior_business_acquisition_cash_paid"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -1357,15 +1414,17 @@
             "tags_any": [
               "long_lived_asset_cash_addition"
             ],
-            "exclude_tags_any": [
-              "bank_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
           "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         },
         {
           "component_id": "CFI-06-C02",
@@ -1376,83 +1435,59 @@
             "tags_any": [
               "long_lived_asset_input_tax_cash"
             ],
-            "exclude_tags_any": [
-              "bank_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
           "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         },
         {
           "component_id": "CFI-06-C03",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_payables",
-              "capex_employee_payables"
-            ],
-            "direction": "opening_minus_closing",
-            "exclude_tags_any": [
-              "bank_operating_exclusive"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C04",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_prepayments"
-            ],
-            "direction": "closing_minus_opening",
-            "exclude_tags_any": [
-              "bank_operating_exclusive"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C05",
           "operation": "fact_amount",
-          "sign": -1,
+          "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
             "tags_any": [
-              "capitalized_interest_cash",
-              "noncash_long_lived_asset_addition",
-              "right_of_use_asset_noncash_addition"
+              "capex_payable_cash_paid"
             ],
-            "exclude_tags_any": [
-              "bank_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
-          "noncash_exclusions": [
-            "投资投入、非货币性交换和债务重组形成的长期资产",
-            "融资租入或使用权资产初始确认的非现金增加"
-          ],
+          "noncash_exclusions": [],
           "special_adjustments": [
-            "资本化利息转入分配股利、利润或偿付利息支付的现金",
-            "偿还租赁负债转入筹资活动"
+            "仅按现金及现金等价物实际收付额列示"
           ],
-          "restricted_cash_treatment": []
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-06-C04",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "capex_employee_cash_paid"
+            ],
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -1484,6 +1519,63 @@
             "投资价款中包含的已到期股利或利息支付额"
           ],
           "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-09-BUSINESS-ACQUISITION",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "business_acquisition_cash_paid",
+              "prior_business_acquisition_cash_paid"
+            ],
+            "negative_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-09-BUSINESS-DISPOSAL",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "disposed_business_cash_and_equivalents",
+              "business_disposal_cost_cash_paid"
+            ],
+            "negative_tags_any": [
+              "business_disposal_cash_received",
+              "prior_business_disposal_cash_received"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },

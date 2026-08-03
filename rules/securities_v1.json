@@ -6,253 +6,253 @@
       "item_id": "CFO-S-MARGIN-DECREASE",
       "name": "融出资金净减少额",
       "section": "operating",
-      "display_order": 5
+      "display_order": 10
     },
     {
       "item_id": "CFO-S-REVERSE-REPO-DECREASE",
       "name": "返售业务资金净减少额",
       "section": "operating",
-      "display_order": 6
+      "display_order": 20
     },
     {
       "item_id": "CFO-S02",
       "name": "收取利息、手续费及佣金的现金",
       "section": "operating",
-      "display_order": 10
+      "display_order": 30
     },
     {
       "item_id": "CFO-S03",
       "name": "拆入资金净增加额",
       "section": "operating",
-      "display_order": 20
+      "display_order": 40
     },
     {
       "item_id": "CFO-S04",
       "name": "回购业务资金净增加额",
       "section": "operating",
-      "display_order": 30
+      "display_order": 50
     },
     {
       "item_id": "CFO-S05",
       "name": "代理买卖证券收到的现金净额",
       "section": "operating",
-      "display_order": 40
+      "display_order": 60
     },
     {
       "item_id": "CFO-S06",
       "name": "收到其他与经营活动有关的现金",
       "section": "operating",
-      "display_order": 50
+      "display_order": 70
     },
     {
       "item_id": "CFO-IN",
       "name": "经营活动现金流入小计",
       "section": "operating",
-      "display_order": 60
+      "display_order": 80
     },
     {
       "item_id": "CFO-S-TRADING",
       "name": "为交易目的而持有的金融资产净增加额",
       "section": "operating",
-      "display_order": 70
+      "display_order": 90
     },
     {
       "item_id": "CFO-S-LENT",
       "name": "拆出资金净增加额",
       "section": "operating",
-      "display_order": 80
-    },
-    {
-      "item_id": "CFO-S-REVERSE-REPO",
-      "name": "返售业务资金净增加额",
-      "section": "operating",
-      "display_order": 90
+      "display_order": 100
     },
     {
       "item_id": "CFO-S-MARGIN-INCREASE",
       "name": "融出资金净增加额",
       "section": "operating",
-      "display_order": 85
+      "display_order": 110
+    },
+    {
+      "item_id": "CFO-S-REVERSE-REPO",
+      "name": "返售业务资金净增加额",
+      "section": "operating",
+      "display_order": 120
     },
     {
       "item_id": "CFO-S-INTEREST-OUT",
       "name": "支付利息、手续费及佣金的现金",
       "section": "operating",
-      "display_order": 100
+      "display_order": 130
     },
     {
       "item_id": "CFO-S-EMP",
       "name": "支付给职工及为职工支付的现金",
       "section": "operating",
-      "display_order": 110
+      "display_order": 140
     },
     {
       "item_id": "CFO-S-TAX",
       "name": "支付的各项税费",
       "section": "operating",
-      "display_order": 120
+      "display_order": 150
     },
     {
       "item_id": "CFO-S-OTHER-OUT",
       "name": "支付其他与经营活动有关的现金",
       "section": "operating",
-      "display_order": 130
+      "display_order": 160
     },
     {
       "item_id": "CFO-OUT",
       "name": "经营活动现金流出小计",
       "section": "operating",
-      "display_order": 140
+      "display_order": 170
     },
     {
       "item_id": "CFO-NET",
       "name": "经营活动产生的现金流量净额",
       "section": "operating",
-      "display_order": 150
+      "display_order": 180
     },
     {
       "item_id": "CFI-01",
       "name": "收回投资收到的现金",
       "section": "investing",
-      "display_order": 160
+      "display_order": 190
     },
     {
       "item_id": "CFI-02",
       "name": "取得投资收益收到的现金",
       "section": "investing",
-      "display_order": 170
+      "display_order": 200
     },
     {
       "item_id": "CFI-03",
       "name": "处置固定资产、无形资产和其他长期资产收回的现金净额",
       "section": "investing",
-      "display_order": 180
+      "display_order": 210
     },
     {
       "item_id": "CFI-05",
       "name": "收到其他与投资活动有关的现金",
       "section": "investing",
-      "display_order": 190
+      "display_order": 220
     },
     {
       "item_id": "CFI-IN",
       "name": "投资活动现金流入小计",
       "section": "investing",
-      "display_order": 200
+      "display_order": 230
     },
     {
       "item_id": "CFI-07",
       "name": "投资支付的现金",
       "section": "investing",
-      "display_order": 210
+      "display_order": 240
     },
     {
       "item_id": "CFI-06",
       "name": "购建固定资产、无形资产和其他长期资产支付的现金",
       "section": "investing",
-      "display_order": 220
+      "display_order": 250
     },
     {
       "item_id": "CFI-09",
       "name": "支付其他与投资活动有关的现金",
       "section": "investing",
-      "display_order": 230
+      "display_order": 260
     },
     {
       "item_id": "CFI-OUT",
       "name": "投资活动现金流出小计",
       "section": "investing",
-      "display_order": 240
+      "display_order": 270
     },
     {
       "item_id": "CFI-NET",
       "name": "投资活动产生的现金流量净额",
       "section": "investing",
-      "display_order": 250
+      "display_order": 280
     },
     {
       "item_id": "CFF-01",
       "name": "吸收投资收到的现金",
       "section": "financing",
-      "display_order": 260
+      "display_order": 290
     },
     {
       "item_id": "CFF-02",
       "name": "取得借款收到的现金",
       "section": "financing",
-      "display_order": 270
+      "display_order": 300
     },
     {
       "item_id": "CFF-BOND",
       "name": "发行债券收到的现金",
       "section": "financing",
-      "display_order": 280
+      "display_order": 310
     },
     {
       "item_id": "CFF-03",
       "name": "收到其他与筹资活动有关的现金",
       "section": "financing",
-      "display_order": 290
+      "display_order": 320
     },
     {
       "item_id": "CFF-IN",
       "name": "筹资活动现金流入小计",
       "section": "financing",
-      "display_order": 300
+      "display_order": 330
     },
     {
       "item_id": "CFF-04",
       "name": "偿还债务支付的现金",
       "section": "financing",
-      "display_order": 310
+      "display_order": 340
     },
     {
       "item_id": "CFF-05",
       "name": "分配股利、利润或偿付利息支付的现金",
       "section": "financing",
-      "display_order": 320
+      "display_order": 350
     },
     {
       "item_id": "CFF-06",
       "name": "支付其他与筹资活动有关的现金",
       "section": "financing",
-      "display_order": 330
+      "display_order": 360
     },
     {
       "item_id": "CFF-OUT",
       "name": "筹资活动现金流出小计",
       "section": "financing",
-      "display_order": 340
+      "display_order": 370
     },
     {
       "item_id": "CFF-NET",
       "name": "筹资活动产生的现金流量净额",
       "section": "financing",
-      "display_order": 350
+      "display_order": 380
     },
     {
       "item_id": "FX",
       "name": "汇率变动对现金及现金等价物的影响",
       "section": "cash",
-      "display_order": 360
+      "display_order": 390
     },
     {
       "item_id": "NET-CASH",
       "name": "现金及现金等价物净增加额",
       "section": "cash",
-      "display_order": 370
+      "display_order": 400
     },
     {
       "item_id": "OPENING-CASH",
       "name": "加：期初现金及现金等价物余额",
       "section": "cash",
-      "display_order": 380
+      "display_order": 410
     },
     {
       "item_id": "CLOSING-CASH",
       "name": "期末现金及现金等价物余额",
       "section": "cash",
-      "display_order": 390
+      "display_order": 420
     }
   ],
   "account_groups": {
@@ -353,7 +353,7 @@
       "item_id": "CFO-S-MARGIN-DECREASE",
       "name": "融出资金净减少额",
       "section": "operating",
-      "display_order": 5,
+      "display_order": 10,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -362,16 +362,28 @@
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "positive_tags_any": ["margin_financing_cash_received"],
-            "negative_tags_any": ["margin_financing_cash_paid"],
+            "positive_tags_any": [
+              "margin_financing_cash_received"
+            ],
+            "negative_tags_any": [
+              "margin_financing_cash_paid"
+            ],
             "positive_only": true,
             "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
-          "noncash_exclusions": ["非现金结算", "公允价值变动", "应计未收未付"],
-          "special_adjustments": ["仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"],
-          "restricted_cash_treatment": ["受限资金不满足现金及现金等价物定义时剔除"]
+          "noncash_exclusions": [
+            "非现金结算",
+            "公允价值变动",
+            "应计未收未付"
+          ],
+          "special_adjustments": [
+            "仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -379,7 +391,7 @@
       "item_id": "CFO-S-REVERSE-REPO-DECREASE",
       "name": "返售业务资金净减少额",
       "section": "operating",
-      "display_order": 6,
+      "display_order": 20,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -388,16 +400,28 @@
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "positive_tags_any": ["reverse_repo_cash_received"],
-            "negative_tags_any": ["reverse_repo_cash_paid"],
+            "positive_tags_any": [
+              "reverse_repo_cash_received"
+            ],
+            "negative_tags_any": [
+              "reverse_repo_cash_paid"
+            ],
             "positive_only": true,
             "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
-          "noncash_exclusions": ["非现金结算", "公允价值变动", "应计未收未付"],
-          "special_adjustments": ["仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"],
-          "restricted_cash_treatment": ["受限资金不满足现金及现金等价物定义时剔除"]
+          "noncash_exclusions": [
+            "非现金结算",
+            "公允价值变动",
+            "应计未收未付"
+          ],
+          "special_adjustments": [
+            "仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -405,7 +429,7 @@
       "item_id": "CFO-S02",
       "name": "收取利息、手续费及佣金的现金",
       "section": "operating",
-      "display_order": 10,
+      "display_order": 30,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -435,7 +459,7 @@
       "item_id": "CFO-S03",
       "name": "拆入资金净增加额",
       "section": "operating",
-      "display_order": 20,
+      "display_order": 40,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -494,7 +518,7 @@
       "item_id": "CFO-S04",
       "name": "回购业务资金净增加额",
       "section": "operating",
-      "display_order": 30,
+      "display_order": 50,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -553,7 +577,7 @@
       "item_id": "CFO-S05",
       "name": "代理买卖证券收到的现金净额",
       "section": "operating",
-      "display_order": 40,
+      "display_order": 60,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -612,7 +636,7 @@
       "item_id": "CFO-S06",
       "name": "收到其他与经营活动有关的现金",
       "section": "operating",
-      "display_order": 50,
+      "display_order": 70,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -642,7 +666,7 @@
       "item_id": "CFO-IN",
       "name": "经营活动现金流入小计",
       "section": "operating",
-      "display_order": 60,
+      "display_order": 80,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -683,7 +707,7 @@
       "item_id": "CFO-S-TRADING",
       "name": "为交易目的而持有的金融资产净增加额",
       "section": "operating",
-      "display_order": 70,
+      "display_order": 90,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -742,7 +766,7 @@
       "item_id": "CFO-S-LENT",
       "name": "拆出资金净增加额",
       "section": "operating",
-      "display_order": 80,
+      "display_order": 100,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -801,7 +825,7 @@
       "item_id": "CFO-S-MARGIN-INCREASE",
       "name": "融出资金净增加额",
       "section": "operating",
-      "display_order": 85,
+      "display_order": 110,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -810,16 +834,28 @@
           "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
-            "positive_tags_any": ["margin_financing_cash_paid"],
-            "negative_tags_any": ["margin_financing_cash_received"],
+            "positive_tags_any": [
+              "margin_financing_cash_paid"
+            ],
+            "negative_tags_any": [
+              "margin_financing_cash_received"
+            ],
             "positive_only": true,
             "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "net",
-          "noncash_exclusions": ["非现金结算", "公允价值变动", "应计未收未付"],
-          "special_adjustments": ["仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"],
-          "restricted_cash_treatment": ["受限资金不满足现金及现金等价物定义时剔除"]
+          "noncash_exclusions": [
+            "非现金结算",
+            "公允价值变动",
+            "应计未收未付"
+          ],
+          "special_adjustments": [
+            "仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -827,7 +863,7 @@
       "item_id": "CFO-S-REVERSE-REPO",
       "name": "返售业务资金净增加额",
       "section": "operating",
-      "display_order": 90,
+      "display_order": 120,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -853,7 +889,7 @@
             "应计未收未付"
           ],
           "special_adjustments": [
-            "仅按现金及现金等价物实际收付额列示"
+            "仅在本项目方向的现金净额为正时列示，反方向由对应项目承接"
           ],
           "restricted_cash_treatment": [
             "受限资金不满足现金及现金等价物定义时剔除"
@@ -865,7 +901,7 @@
       "item_id": "CFO-S-INTEREST-OUT",
       "name": "支付利息、手续费及佣金的现金",
       "section": "operating",
-      "display_order": 100,
+      "display_order": 130,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -895,7 +931,7 @@
       "item_id": "CFO-S-EMP",
       "name": "支付给职工及为职工支付的现金",
       "section": "operating",
-      "display_order": 110,
+      "display_order": 140,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -925,7 +961,7 @@
       "item_id": "CFO-S-TAX",
       "name": "支付的各项税费",
       "section": "operating",
-      "display_order": 120,
+      "display_order": 150,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -955,7 +991,7 @@
       "item_id": "CFO-S-OTHER-OUT",
       "name": "支付其他与经营活动有关的现金",
       "section": "operating",
-      "display_order": 130,
+      "display_order": 160,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -985,7 +1021,7 @@
       "item_id": "CFO-OUT",
       "name": "经营活动现金流出小计",
       "section": "operating",
-      "display_order": 140,
+      "display_order": 170,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1028,7 +1064,7 @@
       "item_id": "CFO-NET",
       "name": "经营活动产生的现金流量净额",
       "section": "operating",
-      "display_order": 150,
+      "display_order": 180,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1063,7 +1099,7 @@
       "item_id": "CFI-01",
       "name": "收回投资收到的现金",
       "section": "investing",
-      "display_order": 160,
+      "display_order": 190,
       "verification_record_id": "FV-securities-CFI-01",
       "components": [
         {
@@ -1094,7 +1130,7 @@
       "item_id": "CFI-02",
       "name": "取得投资收益收到的现金",
       "section": "investing",
-      "display_order": 170,
+      "display_order": 200,
       "verification_record_id": "FV-securities-CFI-02",
       "components": [
         {
@@ -1125,7 +1161,7 @@
       "item_id": "CFI-03",
       "name": "处置固定资产、无形资产和其他长期资产收回的现金净额",
       "section": "investing",
-      "display_order": 180,
+      "display_order": 210,
       "verification_record_id": "FV-securities-CFI-03",
       "components": [
         {
@@ -1191,7 +1227,7 @@
       "item_id": "CFI-05",
       "name": "收到其他与投资活动有关的现金",
       "section": "investing",
-      "display_order": 190,
+      "display_order": 220,
       "verification_record_id": "FV-securities-CFI-05",
       "components": [
         {
@@ -1215,6 +1251,63 @@
             "购买投资价款中包含的已到期股利或利息收回"
           ],
           "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-05-BUSINESS-DISPOSAL",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "business_disposal_cash_received",
+              "prior_business_disposal_cash_received"
+            ],
+            "negative_tags_any": [
+              "disposed_business_cash_and_equivalents",
+              "business_disposal_cost_cash_paid"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-05-BUSINESS-ACQUISITION",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "negative_tags_any": [
+              "business_acquisition_cash_paid",
+              "prior_business_acquisition_cash_paid"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -1222,7 +1315,7 @@
       "item_id": "CFI-IN",
       "name": "投资活动现金流入小计",
       "section": "investing",
-      "display_order": 200,
+      "display_order": 230,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1257,7 +1350,7 @@
       "item_id": "CFI-07",
       "name": "投资支付的现金",
       "section": "investing",
-      "display_order": 210,
+      "display_order": 240,
       "verification_record_id": "FV-securities-CFI-07",
       "components": [
         {
@@ -1292,7 +1385,7 @@
       "item_id": "CFI-06",
       "name": "购建固定资产、无形资产和其他长期资产支付的现金",
       "section": "investing",
-      "display_order": 220,
+      "display_order": 250,
       "verification_record_id": "FV-securities-CFI-06",
       "components": [
         {
@@ -1304,15 +1397,17 @@
             "tags_any": [
               "long_lived_asset_cash_addition"
             ],
-            "exclude_tags_any": [
-              "securities_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
           "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         },
         {
           "component_id": "CFI-06-C02",
@@ -1323,83 +1418,59 @@
             "tags_any": [
               "long_lived_asset_input_tax_cash"
             ],
-            "exclude_tags_any": [
-              "securities_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
           "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         },
         {
           "component_id": "CFI-06-C03",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_payables",
-              "capex_employee_payables"
-            ],
-            "direction": "opening_minus_closing",
-            "exclude_tags_any": [
-              "securities_operating_exclusive"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C04",
-          "operation": "balance_change",
-          "sign": 1,
-          "source_scope": "trial_balance",
-          "selector": {
-            "account_groups": [
-              "capex_prepayments"
-            ],
-            "direction": "closing_minus_opening",
-            "exclude_tags_any": [
-              "securities_operating_exclusive"
-            ]
-          },
-          "occupancy_policy": "exclusive",
-          "gross_or_net": "gross",
-          "noncash_exclusions": [],
-          "special_adjustments": [],
-          "restricted_cash_treatment": []
-        },
-        {
-          "component_id": "CFI-06-C05",
           "operation": "fact_amount",
-          "sign": -1,
+          "sign": 1,
           "source_scope": "fact_ledger",
           "selector": {
             "tags_any": [
-              "capitalized_interest_cash",
-              "noncash_long_lived_asset_addition",
-              "right_of_use_asset_noncash_addition"
+              "capex_payable_cash_paid"
             ],
-            "exclude_tags_any": [
-              "securities_operating_exclusive"
-            ]
+            "industry_exclusive": true
           },
           "occupancy_policy": "exclusive",
           "gross_or_net": "gross",
-          "noncash_exclusions": [
-            "投资投入、非货币性交换和债务重组形成的长期资产",
-            "融资租入或使用权资产初始确认的非现金增加"
-          ],
+          "noncash_exclusions": [],
           "special_adjustments": [
-            "资本化利息转入分配股利、利润或偿付利息支付的现金",
-            "偿还租赁负债转入筹资活动"
+            "仅按现金及现金等价物实际收付额列示"
           ],
-          "restricted_cash_treatment": []
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-06-C04",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "tags_any": [
+              "capex_employee_cash_paid"
+            ],
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": [
+            "仅按现金及现金等价物实际收付额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -1407,7 +1478,7 @@
       "item_id": "CFI-09",
       "name": "支付其他与投资活动有关的现金",
       "section": "investing",
-      "display_order": 230,
+      "display_order": 260,
       "verification_record_id": "FV-securities-CFI-09",
       "components": [
         {
@@ -1431,6 +1502,63 @@
             "投资价款中包含的已到期股利或利息支付额"
           ],
           "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFI-09-BUSINESS-ACQUISITION",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "business_acquisition_cash_paid",
+              "prior_business_acquisition_cash_paid"
+            ],
+            "negative_tags_any": [
+              "acquired_business_cash_and_equivalents"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
+        },
+        {
+          "component_id": "CFI-09-BUSINESS-DISPOSAL",
+          "operation": "net_fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {
+            "positive_tags_any": [
+              "disposed_business_cash_and_equivalents",
+              "business_disposal_cost_cash_paid"
+            ],
+            "negative_tags_any": [
+              "business_disposal_cash_received",
+              "prior_business_disposal_cash_received"
+            ],
+            "positive_only": true,
+            "industry_exclusive": true
+          },
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "net",
+          "noncash_exclusions": [
+            "非现金结算"
+          ],
+          "special_adjustments": [
+            "按取得或处置营业单位相关现金及现金等价物净额列示"
+          ],
+          "restricted_cash_treatment": [
+            "受限资金不满足现金及现金等价物定义时剔除"
+          ]
         }
       ]
     },
@@ -1438,7 +1566,7 @@
       "item_id": "CFI-OUT",
       "name": "投资活动现金流出小计",
       "section": "investing",
-      "display_order": 240,
+      "display_order": 270,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1471,7 +1599,7 @@
       "item_id": "CFI-NET",
       "name": "投资活动产生的现金流量净额",
       "section": "investing",
-      "display_order": 250,
+      "display_order": 280,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1506,7 +1634,7 @@
       "item_id": "CFF-01",
       "name": "吸收投资收到的现金",
       "section": "financing",
-      "display_order": 260,
+      "display_order": 290,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -1561,7 +1689,7 @@
       "item_id": "CFF-02",
       "name": "取得借款收到的现金",
       "section": "financing",
-      "display_order": 270,
+      "display_order": 300,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -1612,7 +1740,7 @@
       "item_id": "CFF-BOND",
       "name": "发行债券收到的现金",
       "section": "financing",
-      "display_order": 280,
+      "display_order": 310,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "components": [
         {
@@ -1642,7 +1770,7 @@
       "item_id": "CFF-03",
       "name": "收到其他与筹资活动有关的现金",
       "section": "financing",
-      "display_order": 290,
+      "display_order": 320,
       "verification_record_id": "FV-securities-CFF-03",
       "components": [
         {
@@ -1672,7 +1800,7 @@
       "item_id": "CFF-IN",
       "name": "筹资活动现金流入小计",
       "section": "financing",
-      "display_order": 300,
+      "display_order": 330,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1707,7 +1835,7 @@
       "item_id": "CFF-04",
       "name": "偿还债务支付的现金",
       "section": "financing",
-      "display_order": 310,
+      "display_order": 340,
       "verification_record_id": "FV-securities-CFF-04",
       "components": [
         {
@@ -1737,7 +1865,7 @@
       "item_id": "CFF-05",
       "name": "分配股利、利润或偿付利息支付的现金",
       "section": "financing",
-      "display_order": 320,
+      "display_order": 350,
       "verification_record_id": "FV-securities-CFF-05",
       "components": [
         {
@@ -1768,7 +1896,7 @@
       "item_id": "CFF-06",
       "name": "支付其他与筹资活动有关的现金",
       "section": "financing",
-      "display_order": 330,
+      "display_order": 360,
       "verification_record_id": "FV-securities-CFF-06",
       "components": [
         {
@@ -1800,7 +1928,7 @@
       "item_id": "CFF-OUT",
       "name": "筹资活动现金流出小计",
       "section": "financing",
-      "display_order": 340,
+      "display_order": 370,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1833,7 +1961,7 @@
       "item_id": "CFF-NET",
       "name": "筹资活动产生的现金流量净额",
       "section": "financing",
-      "display_order": 350,
+      "display_order": 380,
       "verification_record_id": "FV-SECURITIES-FORMAT-2018-R2",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1868,7 +1996,7 @@
       "item_id": "FX",
       "name": "汇率变动对现金及现金等价物的影响",
       "section": "cash",
-      "display_order": 360,
+      "display_order": 390,
       "verification_record_id": "FV-securities-FX",
       "components": [
         {
@@ -1900,7 +2028,7 @@
       "item_id": "NET-CASH",
       "name": "现金及现金等价物净增加额",
       "section": "cash",
-      "display_order": 370,
+      "display_order": 400,
       "verification_record_id": "FV-securities-NET-CASH",
       "is_subtotal": true,
       "subtotal_of": [
@@ -1935,7 +2063,7 @@
       "item_id": "OPENING-CASH",
       "name": "加：期初现金及现金等价物余额",
       "section": "cash",
-      "display_order": 380,
+      "display_order": 410,
       "verification_record_id": "FV-securities-OPENING-CASH",
       "is_subtotal": true,
       "subtotal_of": [],
@@ -1966,7 +2094,7 @@
       "item_id": "CLOSING-CASH",
       "name": "期末现金及现金等价物余额",
       "section": "cash",
-      "display_order": 390,
+      "display_order": 420,
       "verification_record_id": "FV-securities-CLOSING-CASH",
       "is_subtotal": true,
       "subtotal_of": [],

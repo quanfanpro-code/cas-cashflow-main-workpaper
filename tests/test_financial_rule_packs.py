@@ -143,3 +143,43 @@ def test_current_insurance_pack_has_item_level_verification_records():
         record = records[item["verification_record_id"]]
         assert record["cashflow_item_id"] == item["item_id"]
         assert item["name"] in record["candidate_formula"]["components"]
+
+
+@pytest.mark.parametrize(
+    "industry",
+    ["bank", "securities", "insurance", "insurance_2023", "other_financial"],
+)
+def test_financial_capex_uses_actual_cash_facts_and_routes_business_net_cash(industry):
+    raw = json.loads((ROOT / f"rules/{industry}_v1.json").read_text(encoding="utf-8-sig"))
+    by_id = {item["item_id"]: item for item in raw["items"]}
+
+    capex = by_id["CFI-06"]
+    assert all(component["operation"] != "balance_change" for component in capex["components"])
+    capex_tags = {
+        tag
+        for component in capex["components"]
+        for tag in component["selector"].get("tags_any", [])
+    }
+    assert {
+        "long_lived_asset_cash_addition",
+        "long_lived_asset_input_tax_cash",
+        "capex_payable_cash_paid",
+        "capex_employee_cash_paid",
+    } <= capex_tags
+
+    investing_other_tags = {
+        tag
+        for item_id in ("CFI-05", "CFI-09")
+        for component in by_id[item_id]["components"]
+        for key in ("tags_any", "positive_tags_any", "negative_tags_any")
+        for tag in component["selector"].get(key, [])
+    }
+    assert {
+        "business_disposal_cash_received",
+        "prior_business_disposal_cash_received",
+        "disposed_business_cash_and_equivalents",
+        "business_disposal_cost_cash_paid",
+        "business_acquisition_cash_paid",
+        "prior_business_acquisition_cash_paid",
+        "acquired_business_cash_and_equivalents",
+    } <= investing_other_tags

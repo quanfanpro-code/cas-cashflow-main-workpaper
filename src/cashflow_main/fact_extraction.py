@@ -1,6 +1,6 @@
 ﻿"""把报表、余额表、一借一贷明细和调整桥统一为可追溯事实账。"""
 
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 import re
 
@@ -82,6 +82,197 @@ def _account_evidence(account_name: str, original_fields: dict[str, object]) -> 
         [account_name]
         + [f"{key}:{value}" for key, value in original_fields.items() if value not in (None, "")]
     )
+
+
+def _normalized_name(value: str) -> str:
+    return re.sub(r"[\s_—－-]+", "", value or "").lower()
+
+
+def _matches_account_group(
+    account_name: str,
+    account_groups: dict[str, object],
+    group_names: tuple[str, ...],
+) -> bool:
+    normalized = _normalized_name(account_name)
+    return any(
+        normalized.startswith(_normalized_name(str(term)))
+        for group_name in group_names
+        for term in account_groups.get(group_name, ())
+        if _normalized_name(str(term))
+    )
+
+
+def _same_account(left: str, right: str) -> bool:
+    return _normalized_name(left) == _normalized_name(right)
+
+
+def _pair_context(pair) -> str:
+    return _normalized_name(" ".join(
+        str(value) for value in pair.original_fields.values() if value not in (None, "")
+    ))
+
+
+def _capital_liability_analysis(bundle, classifications, account_groups):
+    """按负债来源识别资本性付现；普通混合往来只列候选，不强行猜测。"""
+    extra: dict[int, list[tuple[str, int, tuple[str, ...]]]] = {}
+    residual = {index: pair.amount_minor for index, pair in enumerate(bundle.journal_pairs, 1)}
+    ambiguous: dict[int, tuple[int, tuple[str, ...]]] = {}
+    cash_groups = ("cash_and_equivalents",)
+    credit_indices: dict[str, list[int]] = defaultdict(list)
+    cash_payment_indices: dict[str, list[int]] = defaultdict(list)
+    account_names: dict[str, str] = {}
+    for index, pair in enumerate(bundle.journal_pairs, 1):
+        credit_key = _normalized_name(pair.credit_account_name)
+        debit_key = _normalized_name(pair.debit_account_name)
+        credit_indices[credit_key].append(index)
+        account_names.setdefault(credit_key, pair.credit_account_name)
+        account_names.setdefault(debit_key, pair.debit_account_name)
+        if _matches_account_group(pair.credit_account_name, account_groups, cash_groups):
+            cash_payment_indices[debit_key].append(index)
+    opening_by_account: dict[str, int] = defaultdict(int)
+    for row in bundle.trial_balance:
+        opening_by_account[_normalized_name(row.account_name)] += row.opening_balance_minor
+    for index, pair in enumerate(bundle.journal_pairs, 1):
+        if not (
+            _matches_account_group(pair.debit_account_name, account_groups, ("capex_prepayments",))
+            and _matches_account_group(pair.credit_account_name, account_groups, cash_groups)
+        ):
+            continue
+        extra.setdefault(index, []).append((
+            "long_lived_asset_cash_addition",
+            pair.amount_minor,
+            ("配置明确该科目为工程或设备预付款，按实际支付额归入长期资产购建现金",),
+        ))
+        if _matches_account_group(pair.debit_account_name, account_groups, ("trade_prepayments",)):
+            extra[index].append((
+                "capex_prepayment_change",
+                pair.amount_minor,
+                ("资本性预付款已混入经营预付款余额变动，予以中和",),
+            ))
+        residual[index] = 0
+    configs = (
+        (
+            "capex_payable_accrual",
+            ("capex_payables",),
+            ("trade_payables", "notes_payable"),
+            "capex_payable_cash_paid",
+            "operating_payable_capex_accrual_adjustment",
+            "operating_payable_capex_cash_adjustment",
+            ("工程", "设备", "购建", "固定资产", "无形资产", "长期资产"),
+        ),
+        (
+            "capex_employee_accrual",
+            ("capex_employee_payables",),
+            ("employee_benefits_payable_operating",),
+            "capex_employee_cash_paid",
+            "operating_employee_capex_accrual_adjustment",
+            "operating_employee_capex_cash_adjustment",
+            ("工程人员", "开发人员", "资本化", "在建工程", "开发支出"),
+        ),
+    )
+
+    for (
+        accrual_tag,
+        explicit_groups,
+        operating_groups,
+        cash_tag,
+        accrual_adjustment_tag,
+        cash_adjustment_tag,
+        context_terms,
+    ) in configs:
+        accrual_indices = {
+            index
+            for index, classification in enumerate(classifications, 1)
+            if accrual_tag in classification.tags
+        }
+        liability_keys = {
+            _normalized_name(bundle.journal_pairs[index - 1].credit_account_name)
+            for index in accrual_indices
+        }
+        liability_keys.update(
+            account_key
+            for account_key in cash_payment_indices
+            if _matches_account_group(account_names[account_key], account_groups, explicit_groups)
+        )
+        liability_keys.update(
+            account_key
+            for account_key, payment_indices in cash_payment_indices.items()
+            if _matches_account_group(account_names[account_key], account_groups, operating_groups)
+            and any(
+                any(
+                    _normalized_name(term) in _pair_context(bundle.journal_pairs[index - 1])
+                    for term in context_terms
+                )
+                for index in payment_indices
+            )
+        )
+
+        for liability_key in liability_keys:
+            liability_name = account_names[liability_key]
+            account_accruals = [
+                index
+                for index in credit_indices[liability_key]
+                if index in accrual_indices
+            ]
+            for index in account_accruals:
+                pair = bundle.journal_pairs[index - 1]
+                if _matches_account_group(pair.credit_account_name, account_groups, operating_groups):
+                    extra.setdefault(index, []).append((
+                        accrual_adjustment_tag,
+                        pair.amount_minor,
+                        ("资本性负债形成金额已混入经营往来余额变动，予以中和",),
+                    ))
+
+            payments = cash_payment_indices.get(liability_key, ())
+            if not payments:
+                continue
+            credit_sources = [
+                index
+                for index in credit_indices[liability_key]
+                if not _matches_account_group(
+                    bundle.journal_pairs[index - 1].debit_account_name,
+                    account_groups,
+                    cash_groups,
+                )
+            ]
+            opening = opening_by_account[liability_key]
+            available = sum(bundle.journal_pairs[index - 1].amount_minor for index in account_accruals)
+            single_origin = bool(credit_sources) and opening == 0 and set(credit_sources) <= accrual_indices
+            explicit_account = _matches_account_group(liability_name, account_groups, explicit_groups)
+
+            for index in payments:
+                pair = bundle.journal_pairs[index - 1]
+                explicit_context = any(term in _pair_context(pair) for term in context_terms)
+                if explicit_account or explicit_context:
+                    capital_amount = pair.amount_minor
+                elif single_origin:
+                    capital_amount = min(pair.amount_minor, available)
+                else:
+                    capital_amount = 0
+                if capital_amount:
+                    extra.setdefault(index, []).append((
+                        cash_tag,
+                        capital_amount,
+                        ("负债科目及本期来源能够证明该现金结算属于资本性支出",),
+                    ))
+                    if _matches_account_group(pair.debit_account_name, account_groups, operating_groups):
+                        extra[index].append((
+                            cash_adjustment_tag,
+                            capital_amount,
+                            ("资本性负债支付金额已混入经营往来余额变动，予以中和",),
+                        ))
+                    residual[index] -= capital_amount
+                    available = max(0, available - capital_amount)
+                unresolved = pair.amount_minor - capital_amount
+                if unresolved and account_accruals and not single_origin and not explicit_account and not explicit_context:
+                    ambiguous[index] = (
+                        unresolved,
+                        (
+                            "同一普通负债科目同时存在资本性和非资本性来源",
+                            "摘要及科目关系不能唯一证明本次付款清偿哪一类负债",
+                        ),
+                    )
+    return extra, residual, ambiguous
 
 
 def cash_and_equivalent_control(
@@ -213,14 +404,25 @@ def extract_facts(
                 fact_id,
                 base + (("kind", kind), ("account_evidence", evidence)),
             ))
-    for index, pair in enumerate(bundle.journal_pairs, 1):
-        classification = classify_pair(pair, enterprise_type)
+    classifications = tuple(
+        classify_pair(pair, enterprise_type) for pair in bundle.journal_pairs
+    )
+    capital_facts, residual_amounts, capital_ambiguities = _capital_liability_analysis(
+        bundle,
+        classifications,
+        account_groups,
+    )
+    for index, (pair, classification) in enumerate(
+        zip(bundle.journal_pairs, classifications, strict=True),
+        1,
+    ):
         semantic_tags = classification.tags or (
             ("unclassified_cash",)
             if classification.is_cash_pair
             else ("unclassified_noncash",)
         )
-        for tag_index, semantic_tag in enumerate(semantic_tags):
+        residual_amount = residual_amounts[index]
+        for tag_index, semantic_tag in enumerate(semantic_tags if residual_amount else ()):
             base_fact_id = f"JP:{index}"
             fact_id = (
                 base_fact_id
@@ -229,7 +431,7 @@ def extract_facts(
             )
             facts.append(Fact(
                 fact_id,
-                pair.amount_minor,
+                residual_amount,
                 ("journal_pair", semantic_tag),
                 (f"journal_pair:{index}",),
                 f"{base_fact_id}:{semantic_tag}",
@@ -242,6 +444,59 @@ def extract_facts(
                     ("classification_candidates", classification.candidate_tags if tag_index == 0 else ()),
                     ("classification_preferred", classification.preferred_tag or ""),
                     ("classification_strong_conflict", classification.strong_conflict if tag_index == 0 else False),
+                ),
+            ))
+        for tag, amount, evidence in capital_facts.get(index, ()):
+            fact_id = f"JP:{index}:capital:{tag}"
+            capital_cash_tags = {
+                "long_lived_asset_cash_addition",
+                "capex_payable_cash_paid",
+                "capex_employee_cash_paid",
+            }
+            tag_conflicts = (
+                tuple(
+                    supplied_tag
+                    for supplied_tag in classification.supplied_tags
+                    if supplied_tag not in capital_cash_tags
+                )
+                if tag in capital_cash_tags
+                else ()
+            )
+            facts.append(Fact(
+                fact_id,
+                amount,
+                ("journal_pair", tag),
+                (f"journal_pair:{index}",),
+                f"JP:{index}:{tag}",
+                (
+                    ("debit_account_name", pair.debit_account_name),
+                    ("credit_account_name", pair.credit_account_name),
+                    ("classification_evidence", evidence),
+                    ("supplied_tags", classification.supplied_tags),
+                    ("tag_conflicts", tag_conflicts),
+                    ("classification_candidates", ()),
+                    ("classification_preferred", tag),
+                    ("classification_strong_conflict", False),
+                ),
+            ))
+        if index in capital_ambiguities:
+            amount, evidence = capital_ambiguities[index]
+            fact_id = f"JP:{index}:capital:ambiguous"
+            facts.append(Fact(
+                fact_id,
+                amount,
+                ("journal_pair", "capital_payment_ambiguous"),
+                (f"journal_pair:{index}",),
+                f"JP:{index}:capital_payment_ambiguous",
+                (
+                    ("debit_account_name", pair.debit_account_name),
+                    ("credit_account_name", pair.credit_account_name),
+                    ("classification_evidence", evidence),
+                    ("supplied_tags", classification.supplied_tags),
+                    ("tag_conflicts", ()),
+                    ("classification_candidates", ("CFO-04", "CFI-06")),
+                    ("classification_preferred", "CFO-04"),
+                    ("classification_strong_conflict", True),
                 ),
             ))
     for row in bridge.rows:

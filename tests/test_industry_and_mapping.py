@@ -46,6 +46,19 @@ def test_other_financial_can_reach_automatic_detection_threshold():
     assert result.requires_confirmation is False
 
 
+def test_current_financial_statement_terms_cover_common_alternative_names():
+    cases = (
+        (("发放贷款和垫款", "同业及其他金融机构存放款项"), EnterpriseType.BANK),
+        (("结算备付金", "存出保证金"), EnterpriseType.SECURITIES),
+        (("应收保费", "赔付支出"), EnterpriseType.INSURANCE),
+        (("融资租赁收入", "未实现融资收益"), EnterpriseType.OTHER_FINANCIAL),
+    )
+    for names, expected in cases:
+        result = detect_enterprise_type(bundle_with(*names))
+        assert result.preferred == expected
+        assert result.requires_confirmation is False
+
+
 def test_trial_balance_builds_reproducible_book_statements():
     rows = (
         AccountBalance(

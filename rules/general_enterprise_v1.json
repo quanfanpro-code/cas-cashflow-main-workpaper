@@ -641,7 +641,6 @@
               "inventory_to_capex_or_investment",
               "payable_noncash_settlement",
               "receivable_payable_offset",
-              "capex_payable_change",
               "capex_prepayment_change"
             ]
           },
@@ -654,6 +653,30 @@
           "special_adjustments": [
             "工程设备往来从经营采购中转入投资活动"
           ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C07",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {"tags_any": ["operating_payable_capex_accrual_adjustment"]},
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": ["资本性应付款形成时中和经营应付款余额变动"],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-04-C08",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {"tags_any": ["operating_payable_capex_cash_adjustment"]},
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": ["资本性应付款支付时中和经营应付款余额变动"],
           "restricted_cash_treatment": []
         }
       ]
@@ -705,7 +728,6 @@
           "source_scope": "fact_ledger",
           "selector": {
             "tags_any": [
-              "capex_employee_cash",
               "noncash_employee_benefit"
             ]
           },
@@ -717,6 +739,30 @@
           "special_adjustments": [
             "在建工程及开发支出人员现金转入投资活动"
           ],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-05-C04",
+          "operation": "fact_amount",
+          "sign": 1,
+          "source_scope": "fact_ledger",
+          "selector": {"tags_any": ["operating_employee_capex_accrual_adjustment"]},
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": ["资本化职工薪酬计提时中和经营应付职工薪酬余额变动"],
+          "restricted_cash_treatment": []
+        },
+        {
+          "component_id": "CFO-05-C05",
+          "operation": "fact_amount",
+          "sign": -1,
+          "source_scope": "fact_ledger",
+          "selector": {"tags_any": ["operating_employee_capex_cash_adjustment"]},
+          "occupancy_policy": "exclusive",
+          "gross_or_net": "gross",
+          "noncash_exclusions": [],
+          "special_adjustments": ["资本化职工薪酬支付时中和经营应付职工薪酬余额变动"],
           "restricted_cash_treatment": []
         }
       ]
@@ -1070,7 +1116,9 @@
           "source_scope": "fact_ledger",
           "selector": {
             "tags_any": [
-              "long_lived_asset_cash_addition"
+              "long_lived_asset_cash_addition",
+              "capex_payable_cash_paid",
+              "capex_employee_cash_paid"
             ]
           },
           "occupancy_policy": "exclusive",

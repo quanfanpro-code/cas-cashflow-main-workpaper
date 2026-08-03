@@ -54,6 +54,16 @@ def test_rule_pack_rejects_executable_formula(tmp_path):
         load_rule_pack(path, verification_ids={"FV-G-001"})
 
 
+@pytest.mark.parametrize(
+    "operation",
+    ["debit_turnover", "credit_turnover", "paired_turnover", "adjustment_amount"],
+)
+def test_rule_pack_rejects_unused_legacy_operations(tmp_path, operation):
+    path = write_rule_file(tmp_path, operation=operation)
+    with pytest.raises(ValueError, match="不允许的操作"):
+        load_rule_pack(path, verification_ids={"FV-G-001"})
+
+
 def test_rule_pack_rejects_unverified_formula(tmp_path):
     path = write_rule_file(tmp_path, verification_id="FV-MISSING")
     with pytest.raises(ValueError, match="未核验公式"):

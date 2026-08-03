@@ -131,6 +131,26 @@ def test_no_hit_balance_component_keeps_human_readable_account_label():
     assert result.by_id["X"].components[0].selector_label == "应收账款、应收票据（期初－期末）"
 
 
+def test_account_group_matches_subaccounts_but_not_names_with_the_term_in_the_middle():
+    component = RuleComponent(
+        "X-C1", "balance_change", 1, "trial_balance",
+        {"account_groups": ["payables"], "direction": "opening_minus_closing"},
+        "exclusive", "gross",
+    )
+    item = RuleItem("X", "项目X", "operating", 1, "V-X", (component,))
+    facts = FactLedger.index((
+        Fact("MATCH", 100, ("trial_balance", "closing_change"), ("tb:1",), "MATCH", (("account_name", "应付账款—甲公司"),)),
+        Fact("NO_MATCH", 900, ("trial_balance", "closing_change"), ("tb:2",), "NO_MATCH", (("account_name", "其他应付账款"),)),
+    ))
+
+    result = calculate_items(
+        RulePack("1", EnterpriseType.GENERAL, (), {"payables": ["应付账款"]}, (item,)),
+        facts,
+    )
+
+    assert result.by_id["X"].amount_minor == -100
+
+
 def test_cash_equivalent_balance_selector_excludes_restricted_facts():
     component = RuleComponent(
         "CASH-C1", "cash_equivalent_balance", 1, "trial_balance",

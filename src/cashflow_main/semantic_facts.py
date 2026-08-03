@@ -77,7 +77,10 @@ def classify_pair(
         and _has(debit, "进项税")
         and not _has(context, "购建", "工程", "设备", "固定资产", "无形资产", "长期资产")
     ):
-        add("purchase_input_tax", "借方为增值税进项税额")
+        add(
+            "other_operating_cash_paid" if financial and credit_cash else "purchase_input_tax",
+            "借方为购货进项税额，不属于实际缴纳税费",
+        )
     if _has(credit, "应交税费") and _has(credit, "销项税"):
         add("sales_output_tax", "贷方为增值税销项税额")
     if _has(debit, "坏账准备") and _has(credit, "应收账款", "应收票据"):
@@ -248,7 +251,7 @@ def classify_pair(
             context, "购建", "工程", "设备", "固定资产", "无形资产", "长期资产"
         ):
             add("long_lived_asset_input_tax_cash", "支付长期资产购建相关税费")
-        elif _has(debit, "应交税费"):
+        elif _has(debit, "应交税费") and not _has(debit, "进项税"):
             add("operating_tax_cash_paid", "借记应交税费、贷记现金")
         elif _has(debit, "预付工程款", "预付设备款") or (
             _has(debit, "预付账款") and _has(context, "工程", "设备", "长期资产")
@@ -295,7 +298,7 @@ def classify_pair(
                 add("financial_fee_cash_paid", "保险公司支付手续费及佣金现金")
             elif _has(debit, "应付职工薪酬"):
                 add("employee_cash_payment", "金融企业支付职工薪酬现金")
-            elif _has(debit, "应交税费"):
+            elif _has(debit, "应交税费") and not _has(debit, "进项税"):
                 add("tax_cash_payment", "金融企业支付税费现金")
             elif _has(debit, "分出再保险合同", "应收分保账款"):
                 add("outward_reinsurance_cash_paid", "支付分出再保险合同现金")
@@ -317,11 +320,11 @@ def classify_pair(
         add("noncash_long_lived_asset_addition", "长期资产增加但贷方不是现金")
 
     if _has(credit, "应付职工薪酬") and _has(
-        debit, "管理费用", "销售费用", "研发费用", "营业成本", "生产成本", "制造费用", "在建工程", "开发支出"
+        debit, "管理费用", "销售费用", "研发费用", "营业成本", "生产成本", "制造费用"
     ):
         add("employee_compensation_expense", "借记成本费用或长期资产、贷记应付职工薪酬")
     if _has(debit, "在建工程", "开发支出") and _has(credit, "应付职工薪酬"):
-        add("capex_employee_cash", "工程或开发人员薪酬应从经营职工现金中转入投资活动")
+        add("capex_employee_accrual", "工程或开发人员薪酬已资本化但尚不能据此认定付现")
     if _has(debit, "应付职工薪酬") and not credit_cash and _has(
         credit, "存货", "库存商品", "固定资产", "无形资产"
     ):
@@ -329,7 +332,7 @@ def classify_pair(
     if _has(debit, "固定资产", "在建工程", "无形资产", "投资性房地产", "开发支出") and _has(
         credit, "应付账款", "应付票据", "长期应付款"
     ):
-        add("capex_payable_change", "长期资产形成的应付款不属于经营采购往来")
+        add("capex_payable_accrual", "长期资产形成应付款，但本分录不涉及现金")
 
     if _has(debit, "使用权资产") and _has(credit, "租赁负债"):
         add("right_of_use_asset_noncash_addition", "使用权资产和租赁负债初始确认不涉及现金")

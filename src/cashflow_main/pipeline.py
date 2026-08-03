@@ -400,7 +400,11 @@ def _prepare_run(config: RunConfig, run_dir: Path) -> PipelineResult:
     )
     classification_cases = tuple(
         build_decision_case(
-            decision_id=f"CASH_CLASSIFICATION:{fact.fact_id}",
+            decision_id=(
+                f"CAPITAL_PAYMENT:{fact.fact_id}"
+                if "capital_payment_ambiguous" in fact.tags
+                else f"CASH_CLASSIFICATION:{fact.fact_id}"
+            ),
             amount_minor=fact.amount_minor,
             candidate_item_ids=tuple(
                 str(value)

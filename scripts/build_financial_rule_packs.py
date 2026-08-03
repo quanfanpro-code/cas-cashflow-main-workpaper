@@ -95,6 +95,74 @@ def positive_net_item(
     }
 
 
+def positive_net_component(
+    component_id: str,
+    positive_tags: list[str],
+    negative_tags: list[str],
+) -> dict:
+    return {
+        "component_id": component_id,
+        "operation": "net_fact_amount",
+        "sign": 1,
+        "source_scope": "fact_ledger",
+        "selector": {
+            "positive_tags_any": positive_tags,
+            "negative_tags_any": negative_tags,
+            "positive_only": True,
+            "industry_exclusive": True,
+        },
+        "occupancy_policy": "exclusive",
+        "gross_or_net": "net",
+        "noncash_exclusions": ["非现金结算"],
+        "special_adjustments": ["按取得或处置营业单位相关现金及现金等价物净额列示"],
+        "restricted_cash_treatment": ["受限资金不满足现金及现金等价物定义时剔除"],
+    }
+
+
+def actual_capex_components() -> list[dict]:
+    return [
+        component("CFI-06-C01", "long_lived_asset_cash_addition"),
+        component("CFI-06-C02", "long_lived_asset_input_tax_cash"),
+        component("CFI-06-C03", "capex_payable_cash_paid"),
+        component("CFI-06-C04", "capex_employee_cash_paid"),
+    ]
+
+
+def add_business_net_components(received: dict, paid: dict) -> None:
+    received["components"] = [
+        component for component in received["components"]
+        if not component["component_id"].startswith("CFI-05-BUSINESS-")
+    ]
+    paid["components"] = [
+        component for component in paid["components"]
+        if not component["component_id"].startswith("CFI-09-BUSINESS-")
+    ]
+    received["components"].extend([
+        positive_net_component(
+            "CFI-05-BUSINESS-DISPOSAL",
+            ["business_disposal_cash_received", "prior_business_disposal_cash_received"],
+            ["disposed_business_cash_and_equivalents", "business_disposal_cost_cash_paid"],
+        ),
+        positive_net_component(
+            "CFI-05-BUSINESS-ACQUISITION",
+            ["acquired_business_cash_and_equivalents"],
+            ["business_acquisition_cash_paid", "prior_business_acquisition_cash_paid"],
+        ),
+    ])
+    paid["components"].extend([
+        positive_net_component(
+            "CFI-09-BUSINESS-ACQUISITION",
+            ["business_acquisition_cash_paid", "prior_business_acquisition_cash_paid"],
+            ["acquired_business_cash_and_equivalents"],
+        ),
+        positive_net_component(
+            "CFI-09-BUSINESS-DISPOSAL",
+            ["disposed_business_cash_and_equivalents", "business_disposal_cost_cash_paid"],
+            ["business_disposal_cash_received", "prior_business_disposal_cash_received"],
+        ),
+    ])
+
+
 def subtotal(item_id: str, name: str, section: str, item_ids: list[str], verification_id: str, signs=None) -> dict:
     selector = {"item_ids": item_ids}
     if signs is not None:
@@ -248,7 +316,11 @@ def rebuild_pack(raw: dict, industry: str) -> dict:
     investing_out = [copy.deepcopy(by_id["CFI-07"])]
     if industry == "insurance":
         investing_out.extend(old_insurance_investing_items(verification_id))
-    investing_out.extend(copy.deepcopy(by_id[item_id]) for item_id in ("CFI-06", "CFI-09"))
+    capex = copy.deepcopy(by_id["CFI-06"])
+    capex["components"] = actual_capex_components()
+    other_investing_paid = copy.deepcopy(by_id["CFI-09"])
+    add_business_net_components(investing_in[-1], other_investing_paid)
+    investing_out.extend((capex, other_investing_paid))
     items.extend(investing_in)
     items.append(subtotal("CFI-IN", "投资活动现金流入小计", "investing", [item["item_id"] for item in investing_in], verification_id))
     items.extend(investing_out)
@@ -380,10 +452,60 @@ def insurance_2023_records(pack: dict) -> list[dict]:
             source,
         )
         record["cashflow_item_id"] = item["item_id"]
-        record["candidate_formula"]["components"] = [item["name"]]
-        record["corrected_formula"]["components"] = [
-            component["component_id"] for component in item["components"]
+        components = item["components"]
+        if item.get("is_subtotal"):
+            gross_or_net = "not_applicable"
+        elif any(component["gross_or_net"] == "net" for component in components):
+            gross_or_net = "net"
+        elif any(component["gross_or_net"] == "gross" for component in components):
+            gross_or_net = "gross"
+        else:
+            gross_or_net = "not_applicable"
+        record["candidate_formula"]["source_locator"] = f"{source}：{item['name']}"
+        record["candidate_formula"]["components"] = [
+            item["name"],
+            *(component["component_id"] for component in components),
         ]
+        record["corrected_formula"]["components"] = [
+            component["component_id"] for component in components
+        ]
+        record["corrected_formula"]["gross_or_net"] = gross_or_net
+        for field in (
+            "noncash_exclusions",
+            "special_adjustments",
+            "restricted_cash_treatment",
+        ):
+            record["corrected_formula"][field] = list(dict.fromkeys(
+                value
+                for component in components
+                for value in component[field]
+            ))
+        if item.get("is_subtotal"):
+            referenced = "、".join(item.get("subtotal_of", ()))
+            record["netting_basis"] = f"由正表项目{referenced}按本项目规定的加减方向汇总"
+        elif gross_or_net == "gross":
+            record["netting_basis"] = f"{item['name']}按实际现金收入或支出总额列示，不与反方向现金流相抵"
+        elif gross_or_net == "net":
+            positive = [
+                tag
+                for component in components
+                for tag in component["selector"].get("positive_tags_any", ())
+            ]
+            negative = [
+                tag
+                for component in components
+                for tag in component["selector"].get("negative_tags_any", ())
+            ]
+            direction = "、".join(positive) or "各净额组成的正向金额"
+            reverse = "、".join(negative) or "各净额组成的反向金额"
+            record["netting_basis"] = f"按{direction}减{reverse}计算净额，并按正表规定方向列示"
+        elif any(component["operation"] == "cash_equivalent_balance" for component in components):
+            record["netting_basis"] = f"按{item['name']}对应时点的现金及现金等价物余额列示，并剔除受限资金"
+        else:
+            record["netting_basis"] = f"由{item['name']}的已核验组成按规定方向计算"
+        record["mutual_exclusion"] = (
+            f"归入{item['name']}的事实不得再进入本格式其他互斥项目；小计引用不构成重复分配"
+        )
         record["reviewed_at"] = "2026-08-03"
         records.append(record)
     return records

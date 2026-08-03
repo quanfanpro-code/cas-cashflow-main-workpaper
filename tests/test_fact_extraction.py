@@ -74,17 +74,74 @@ def test_one_journal_pair_can_supply_distinct_workpaper_adjustments_without_shar
         bundle,
         AdjustmentBridgeResult((), (), True),
         EnterpriseType.GENERAL,
-        {},
+        {"employee_benefits_payable_operating": ["应付职工薪酬"]},
     )
-    employee_expense = next(
+    capex_accrual = next(
         fact for fact in facts.values()
-        if "employee_compensation_expense" in fact.tags
+        if "capex_employee_accrual" in fact.tags
     )
     capex_adjustment = next(
         fact for fact in facts.values()
-        if "capex_employee_cash" in fact.tags
+        if "operating_employee_capex_accrual_adjustment" in fact.tags
     )
 
-    assert employee_expense.amount_minor == 500
+    assert capex_accrual.amount_minor == 500
     assert capex_adjustment.amount_minor == 500
-    assert employee_expense.occupancy_key != capex_adjustment.occupancy_key
+    assert capex_accrual.occupancy_key != capex_adjustment.occupancy_key
+
+
+def test_configured_capex_prepayment_is_investing_cash_without_false_operating_adjustment():
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(),
+        journal_pairs=(JournalPair(
+            "预付机器款",
+            "银行存款",
+            500,
+            {"摘要": "支付机器采购定金"},
+        ),),
+        prior_cashflow=(),
+    )
+
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        {
+            "cash_and_equivalents": ["银行存款"],
+            "capex_prepayments": ["预付机器款"],
+            "trade_prepayments": ["预付账款"],
+        },
+    )
+
+    assert any("long_lived_asset_cash_addition" in fact.tags for fact in facts.values())
+    assert all("capex_prepayment_change" not in fact.tags for fact in facts.values())
+
+
+def test_capex_payment_keeps_conflicting_supplied_cashflow_tag_visible():
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(),
+        journal_pairs=(JournalPair(
+            "应付工程款",
+            "银行存款",
+            500,
+            {"摘要": "支付工程款", "现金流标签": "other_operating_cash_paid"},
+        ),),
+        prior_cashflow=(),
+    )
+
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        {
+            "cash_and_equivalents": ["银行存款"],
+            "capex_payables": ["应付工程款"],
+        },
+    )
+    payment = next(fact for fact in facts.values() if "capex_payable_cash_paid" in fact.tags)
+
+    assert payment.metadata["tag_conflicts"] == ("other_operating_cash_paid",)
