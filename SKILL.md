@@ -34,6 +34,17 @@ python scripts\engine_launcher.py finalize --run-dir "运行目录" --decisions 
 
 prepare依次完成输入哈希冻结、标准化、账务核对、行业识别、账面报表、调整桥、事实提取、逐项目计算、完整性检查、正表及计算验证底稿输出。
 
+确认结果.json是UTF-8 JSON文件，每项只确认首选方案，格式固定为：
+
+```json
+[
+  {"decision_id": "CAPITAL_PAYMENT:JP:12:capital_payment_ambiguous", "confirmed": true},
+  {"decision_id": "INDUSTRY_CONFIRMATION", "confirmed": true}
+]
+```
+
+`decision_id`取运行目录`state.json`中`pending_decisions`列出的编号；`confirmed`必须是真正的布尔值`true`。finalize会校验所有待确认编号都已确认，未全部确认时拒绝输出最终正表。
+
 ## 自动判断和人工升级
 
 - 确定性规则先行，AI必须给唯一首选及金额。

@@ -1,11 +1,19 @@
-﻿"""用Windows选择窗口收集固定输入，取消时不留下半份配置。"""
+"""用Windows选择窗口收集固定输入，取消时不留下半份配置。"""
 
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from tkinter import Tk, filedialog, messagebox, simpledialog
 
 
 class SelectionCancelled(RuntimeError):
     pass
+
+
+def _materiality_minor(raw: str) -> int:
+    """把用户输入的重要性金额（元）四舍五入为最小货币单位整数。"""
+    amount = Decimal(raw.replace(",", "").replace("，", "").strip())
+    if amount <= 0:
+        raise ValueError("实际执行重要性水平必须是正数")
+    return int((amount * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
 def select_manifest() -> dict[str, object]:
@@ -51,11 +59,9 @@ def select_manifest() -> dict[str, object]:
         if raw is None:
             raise SelectionCancelled("用户取消了重要性水平输入")
         try:
-            materiality = Decimal(raw.replace(",", ""))
+            materiality_minor = _materiality_minor(raw)
         except InvalidOperation as exc:
             raise ValueError("实际执行重要性水平必须是正数") from exc
-        if materiality <= 0:
-            raise ValueError("实际执行重要性水平必须是正数")
         entity_name = simpledialog.askstring("企业名称", "请输入编制单位名称：", parent=root)
         if entity_name is None:
             raise SelectionCancelled("用户取消了企业名称输入")
@@ -68,7 +74,7 @@ def select_manifest() -> dict[str, object]:
             "output_dir": output_dir,
             "display_unit": "元",
             "currency": "人民币",
-            "performance_materiality_minor": int(materiality * 100),
+            "performance_materiality_minor": materiality_minor,
             "entity_name": entity_name.strip(),
             "period": period.strip(),
         })

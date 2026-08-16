@@ -1,8 +1,9 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 import json
 
 import openpyxl
+import pytest
 
 from cashflow_main.__main__ import build_parser, main
 
@@ -82,3 +83,19 @@ def test_prepare_command_exports_bridge_and_ledger_into_visible_workpaper(tmp_pa
     rows = list(workbook["计算验证底稿"].iter_rows(values_only=True))
     assert any(row[0] == "营业收入" and row[7] == "已解释" for row in rows)
     assert any("已勾稽" in row for row in rows)
+
+
+def test_materiality_minor_rounds_half_up_instead_of_truncating():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "select_paths", Path("scripts/select_paths.py").resolve()
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    assert module._materiality_minor("1.999") == 200
+    assert module._materiality_minor("1.994") == 199
+    assert module._materiality_minor("1，000.5") == 100_050
+    with pytest.raises(ValueError, match="正数"):
+        module._materiality_minor("0")

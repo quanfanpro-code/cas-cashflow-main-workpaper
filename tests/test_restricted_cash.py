@@ -1,4 +1,5 @@
-﻿from pathlib import Path
+import json
+from pathlib import Path
 
 import openpyxl
 
@@ -181,3 +182,42 @@ def test_undetailed_term_deposit_is_not_silently_included():
     assert opening == 0
     assert closing == 0
     assert any("cash_equivalent_uncertain" in fact.tags for fact in facts.values())
+
+
+def _general_rule_pack():
+    registry = {}
+    registry_path = Path("references/公式核验/general_enterprise_v1.jsonl")
+    for line in registry_path.read_text(encoding="utf-8-sig").splitlines():
+        if line.strip():
+            record = json.loads(line)
+            registry[str(record["verification_id"])] = record
+    from cashflow_main.rule_loader import load_rule_pack
+
+    return load_rule_pack(Path("rules/general_enterprise_v1.json"), registry)
+
+
+def test_cash_balance_items_ignore_long_term_and_undetailed_deposits():
+    from cashflow_main.item_calculators import calculate_items
+
+    bundle = NormalizedInputBundle(
+        audited_balance_sheet=(),
+        audited_income_statement=(),
+        trial_balance=(
+            AccountBalance("100201", "银行存款", 10_000, 0, 0, 10_000),
+            AccountBalance("100298", "银行存款-一年期定期存款", 5_000, 0, 0, 5_000),
+            AccountBalance("100299", "银行存款-定期存款", 3_000, 0, 0, 3_000),
+            AccountBalance("100202", "银行存款-冻结资金", 2_000, 0, 0, 2_000),
+        ),
+        journal_pairs=(),
+        prior_cashflow=(),
+    )
+    facts = extract_facts(
+        bundle,
+        AdjustmentBridgeResult((), (), True),
+        EnterpriseType.GENERAL,
+        CASH_GROUPS,
+    )
+    calculation = calculate_items(_general_rule_pack(), facts)
+
+    assert calculation.by_id["OPENING-CASH"].amount_minor == 10_000
+    assert calculation.by_id["CLOSING-CASH"].amount_minor == 10_000

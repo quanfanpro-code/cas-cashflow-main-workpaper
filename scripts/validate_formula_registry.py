@@ -1,4 +1,4 @@
-﻿"""校验公式核验记录和规则包之间的完整对应关系。"""
+"""校验公式核验记录和规则包之间的完整对应关系。"""
 
 import argparse
 import json
@@ -88,12 +88,17 @@ def load_registry(path: Path) -> dict[str, dict[str, object]]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--registry", type=Path, required=True)
+    parser.add_argument("--registry", type=Path)
     parser.add_argument("--rule-pack", type=Path)
     parser.add_argument("--all-rule-packs", action="store_true")
     parser.add_argument("--require-zero-unresolved", action="store_true")
     args = parser.parse_args()
-    records = load_registry(args.registry)
+    if args.all_rule_packs:
+        records = load_registry(Path(__file__).parents[1] / "references" / "公式核验")
+    else:
+        if args.registry is None:
+            parser.error("非全量模式必须提供 --registry")
+        records = load_registry(args.registry)
     unresolved = sum(
         record["conclusion"] != "verified" for record in records.values()
     )

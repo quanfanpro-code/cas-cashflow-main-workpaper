@@ -1,4 +1,4 @@
-﻿"""按已核验规则逐组成计算现金流量表项目，不执行任意表达式。"""
+"""按已核验规则逐组成计算现金流量表项目，不执行任意表达式。"""
 
 from dataclasses import dataclass, field
 import re
@@ -116,18 +116,11 @@ def _select(
         candidates = [f for f in facts.values() if "closing_change" in f.tags]
     elif operation == "cash_equivalent_balance":
         period_kind = {"opening": "opening", "closing": "closing"}.get(str(selector.get("period")))
-        cash_names = account_groups.get("cash_and_equivalents", [])
         return tuple(
             f
             for f in facts.values()
             if f.metadata.get("kind") == period_kind
-            and (
-                "cash_equivalent" in f.tags
-                or any(
-                    _is_account_or_subaccount(f.metadata.get("account_name", ""), name)
-                    for name in cash_names
-                )
-            )
+            and "cash_equivalent" in f.tags
             and not (
                 selector.get("exclude_restricted", True)
                 and "restricted_cash" in f.tags

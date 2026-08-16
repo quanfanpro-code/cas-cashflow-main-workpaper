@@ -1,5 +1,6 @@
-﻿import sys
+import sys
 import json
+import subprocess
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -114,3 +115,24 @@ def test_current_insurance_registry_uses_item_specific_gross_net_and_subtotal_ba
             assert "净额" in basis or "轧差" in basis
 
     assert len(bases) >= 4
+
+
+def test_validate_script_all_rule_packs_checks_each_own_registry():
+    script = Path(__file__).parents[1] / "scripts/validate_formula_registry.py"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-X",
+            "utf8",
+            str(script),
+            "--all-rule-packs",
+            "--require-zero-unresolved",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "missing_evidence=0" in result.stdout
+    assert "orphan_rule=0" in result.stdout
